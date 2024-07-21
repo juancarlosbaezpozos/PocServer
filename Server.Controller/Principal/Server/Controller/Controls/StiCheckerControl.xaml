@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<UserControl x:Class="Principal.Server.Controller.Controls.StiCheckerControl" 
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" 
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:wpf="schemas-principal-com:wpf-controls-V2"
+             xmlns:check="clr-namespace:Principal.Server.Controller.Check">
+    <wpf:CloudGroupBox Name="groupBoxServerChecker" Header="Verificación de Estado" Margin="0,0,0,4">
+        <Grid Margin="8,0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="1" />
+                <RowDefinition />
+            </Grid.RowDefinitions>
+            <wpf:StiToolBar Name="toolbarActions" Height="30" BorderThickness="0">
+                <wpf:StiButton Name="buttonCheckServer" Height="26" Click="buttonCheckServerClick">
+                    <StackPanel Orientation="Horizontal" IsHitTestVisible="False">
+                        <Image Name="imageRun" Width="16" Height="16" Stretch="Fill" />
+                        <TextBlock Name="textBlockCheckTheReport" VerticalAlignment="Center" Margin="2,0">Iniciar Verificación</TextBlock>
+                    </StackPanel>
+                </wpf:StiButton>
+            </wpf:StiToolBar>
+            <wpf:StiHorizontalDotSeparator Grid.Row="1" Margin="-8,0" />
+            <check:StiCheckStatusControl x:Name="checkStatusControl" Grid.Row="2" />
+        </Grid>
+    </wpf:CloudGroupBox>
+</UserControl>

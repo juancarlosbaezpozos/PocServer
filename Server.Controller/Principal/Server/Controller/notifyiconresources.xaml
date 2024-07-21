@@ -1,0 +1,64 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:wpf="schemas-principal-com:wpf-controls-V2"
+                    xmlns:notifyIcon="clr-namespace:Principal.Server.Controller.NotifyIcon"
+                    xmlns:controller="clr-namespace:Principal.Server.Controller">
+    <notifyIcon:TaskbarIcon x:Key="NotifyIcon" IconSource="app.net.ico" ToolTipText="Principal Server" LeftClickCommand="{Binding SettingsCommand}" DoubleClickCommand="{Binding SettingsCommand}">
+        <FrameworkElement.DataContext>
+            <controller:NotifyIconViewModel />
+        </FrameworkElement.DataContext>
+        <FrameworkElement.ContextMenu>
+            <wpf:StiContextMenu MinWidth="150">
+                <wpf:StiMenuItem Name="itemRun" Command="{Binding StartServerCommand}">
+                    <MenuItem.Icon>
+                        <Image Stretch="Fill" Width="16" Height="16" IsHitTestVisible="False" />
+                    </MenuItem.Icon>
+                    <HeaderedItemsControl.Header>
+                        <TextBlock Margin="4, 0, 0, 0" Text="Iniciar" />
+                    </HeaderedItemsControl.Header>
+                </wpf:StiMenuItem>
+                <wpf:StiMenuItem Command="{Binding StopServerCommand}">
+                    <MenuItem.Icon>
+                        <Image Stretch="Fill" Width="16" Height="16" IsHitTestVisible="False" />
+                    </MenuItem.Icon>
+                    <HeaderedItemsControl.Header>
+                        <TextBlock Margin="4, 0, 0, 0" Text="Detener" />
+                    </HeaderedItemsControl.Header>
+                </wpf:StiMenuItem>
+                <wpf:StiMenuItem Command="{Binding RestartServerCommand}">
+                    <MenuItem.Icon>
+                        <Image Stretch="Fill" Width="16" Height="16" IsHitTestVisible="False" />
+                    </MenuItem.Icon>
+                    <HeaderedItemsControl.Header>
+                        <TextBlock Margin="4, 0, 0, 0" Text="Reiniciar" />
+                    </HeaderedItemsControl.Header>
+                </wpf:StiMenuItem>
+                <Separator />
+                <wpf:StiMenuItem Name="menuItemCheckServer" Command="{Binding CheckServerCommand}">
+                    <MenuItem.Icon>
+                        <Image Stretch="Fill" Width="16" Height="16" IsHitTestVisible="False" />
+                    </MenuItem.Icon>
+                    <HeaderedItemsControl.Header>
+                        <TextBlock Margin="4, 0, 0, 0" Text="Verificar Incidencias" />
+                    </HeaderedItemsControl.Header>
+                </wpf:StiMenuItem>
+                <wpf:StiMenuItemSeparator />
+                <wpf:StiMenuItem Command="{Binding SettingsCommand}">
+                    <MenuItem.Icon>
+                        <Image Stretch="Fill" Width="16" Height="16" IsHitTestVisible="False" />
+                    </MenuItem.Icon>
+                    <HeaderedItemsControl.Header>
+                        <TextBlock Margin="4, 0, 0, 0" Text="Panel de Control" />
+                    </HeaderedItemsControl.Header>
+                </wpf:StiMenuItem>
+                <wpf:StiMenuItemSeparator />
+                <wpf:StiMenuItem Command="{Binding ExitApplicationCommand}">
+                    <HeaderedItemsControl.Header>
+                        <TextBlock Margin="4, 0, 0, 0" Text="Salir" />
+                    </HeaderedItemsControl.Header>
+                </wpf:StiMenuItem>
+            </wpf:StiContextMenu>
+        </FrameworkElement.ContextMenu>
+    </notifyIcon:TaskbarIcon>
+</ResourceDictionary>

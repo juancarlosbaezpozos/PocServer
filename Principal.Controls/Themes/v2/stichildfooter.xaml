@@ -1,0 +1,69 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:controls="clr-namespace:Principal.Controls.Core">
+    <SolidColorBrush x:Key="PageBorderActiveColor">#2b579a</SolidColorBrush>
+    <SolidColorBrush x:Key="PageBorderInactiveColor">#c6c6c6</SolidColorBrush>
+    <SolidColorBrush x:Key="office15AppColor1" Color="#fefefe" />
+    <SolidColorBrush x:Key="office15AppColor2" Color="#f0f0f0" />
+    <SolidColorBrush x:Key="office15RibbonGroupOverflowMouseOver" Color="#f7f7f7" />
+    <SolidColorBrush x:Key="office15RibbonGroupOverflowPressed" Color="#f0f0f0" />
+    <LinearGradientBrush x:Key="WorkBackgroundBrush" EndPoint="0,1">
+        <GradientStop Color="{Binding Path=Color, Source={StaticResource office15AppColor1}}" />
+        <GradientStop Offset="1" Color="{Binding Path=Color, Source={StaticResource office15AppColor2}}" />
+    </LinearGradientBrush>
+    <Color x:Key="office15ColorButtonNormalBackground">#fdfdfd</Color>
+    <Color x:Key="office15ColorButtonMOBackground">#d5e1f2</Color>
+    <Color x:Key="office15ColorButtonPRBackground">#a3bde3</Color>
+    <Color x:Key="office15GlobalBorderBrushColor">#c6c6c6</Color>
+    <SolidColorBrush x:Key="office15AppButton2010Background" Color="#0070b8" />
+    <SolidColorBrush x:Key="office15AppButton2010MouseOverBackground" Color="#3e6db5" />
+    <SolidColorBrush x:Key="office15AppButton2010PressedBackground" Color="#19478a" />
+    <SolidColorBrush x:Key="office15ButtonMouseOver" Color="#d4e0f1" />
+    <SolidColorBrush x:Key="office15ButtonPressed" Color="#a3bde3" />
+    <SolidColorBrush x:Key="office15ButtonChecked" Color="#c2d5f2" />
+    <SolidColorBrush x:Key="office15BorderBrush" Color="{StaticResource office15GlobalBorderBrushColor}" />
+    <SolidColorBrush x:Key="office15Foreground" Color="#444444" />
+    <SolidColorBrush x:Key="office15RibbonTabItemForeground" Color="#444444" />
+    <SolidColorBrush x:Key="office15RibbonTabItemBorderBrush" Color="#c6c6c6" />
+    <SolidColorBrush x:Key="office15ForegroundSelected" Color="#2b579a" />
+    <SolidColorBrush x:Key="office15ComboBoxBorderBrush" Color="#b6b6b6" />
+    <SolidColorBrush x:Key="office15SelectionBackground" Color="#88c3ff" />
+    <SolidColorBrush x:Key="office15ComboBoxMOGlyph" Color="#444444" />
+    <SolidColorBrush x:Key="office15ButtonNormalBorderBrush" Color="#ababab" />
+    <SolidColorBrush x:Key="office15ButtonMOBorderBrush" Color="#a3bde3" />
+    <SolidColorBrush x:Key="office15ButtonPRBorderBrush" Color="#3e6db5" />
+    <SolidColorBrush x:Key="office15ButtonNormalBackground" Color="{StaticResource office15ColorButtonNormalBackground}" />
+    <SolidColorBrush x:Key="office15ButtonMOBackground" Color="{StaticResource office15ColorButtonMOBackground}" />
+    <SolidColorBrush x:Key="office15ButtonPRBackground" Color="{StaticResource office15ColorButtonPRBackground}" />
+    <SolidColorBrush x:Key="office15ToolBarBtnNormalBackground" Color="#f0f0f0" />
+    <SolidColorBrush x:Key="office15ToolBarBtnMOBackground" Color="{StaticResource office15ColorButtonMOBackground}" />
+    <SolidColorBrush x:Key="office15ToolBarBtnPRBackground" Color="{StaticResource office15ColorButtonPRBackground}" />
+    <SolidColorBrush x:Key="office15ScrollBarGlyph" Color="#777777" />
+    <SolidColorBrush x:Key="office15ScrollBarMOBackground" Color="#f0f0f0" />
+    <SolidColorBrush x:Key="office15ScrollBarNormalBorderBrush" Color="#ababab" />
+    <SolidColorBrush x:Key="office15ScrollBarPressedBorderBrush" Color="#777777" />
+    <SolidColorBrush x:Key="office15RibbonMainTabControlBackground">#f3f3f3</SolidColorBrush>
+    <SolidColorBrush x:Key="office15RibbonMainTabControlTopRect">#e5e5e5</SolidColorBrush>
+    <LinearGradientBrush x:Key="office15TabItemPressedBackground" EndPoint="0,1">
+        <GradientStop Color="{StaticResource office15ColorButtonMOBackground}" />
+        <GradientStop Offset="1" Color="White" />
+    </LinearGradientBrush>
+    <SolidColorBrush x:Key="office15DemoPanelBackground" Color="#19478a" />
+    <SolidColorBrush x:Key="office15DemoItemMO" Color="#3b629b" />
+    <SolidColorBrush x:Key="office15DemoItemPR" Color="#11315f" />
+    <Style x:Key="{x:Type controls:StiChildFooter}" TargetType="{x:Type controls:StiChildFooter}">
+        <Setter Property="FrameworkElement.FocusVisualStyle" Value="{x:Null}" />
+        <Setter Property="Focusable" Value="True" />
+        <Setter Property="IsTabStop" Value="False" />
+        <Setter Property="Background" Value="#FFFFFFFF" />
+        <Setter Property="FrameworkElement.UseLayoutRounding" Value="True" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type controls:StiChildFooter}">
+                    <Grid Background="{TemplateBinding Control.Background}" MinHeight="40">
+                        <ContentPresenter Content="{TemplateBinding ContentControl.Content}" VerticalAlignment="Center" />
+                        <controls:StiHorizontalDotSeparator VerticalAlignment="Top" />
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+</ResourceDictionary>

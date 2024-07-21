@@ -1,0 +1,116 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<UserControl x:Class="Principal.Server.Controller.Controls.StiServiceInstallationControl" 
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" 
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:wpf="schemas-principal-com:wpf-controls-V2" 
+             xmlns:controls="clr-namespace:Principal.Server.Controller.Controls;assembly=Principal.Server.Controller">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        <wpf:CloudGroupBox Name="groupBoxInstallation" Header="Instalación" Margin="0,0,0,4">
+            <Grid Margin="4, 12, 4, 4">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition Width="40" />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <wpf:StiButton Name="buttonInstall" Margin="4" Width="150" Grid.Column="0" Grid.Row="0" Content="Instalar" Click="ButtonInstallClick" />
+                <wpf:StiButton Name="buttonUninstall" Margin="4" Width="150" Grid.Column="0" Grid.Row="1" Content="Desinstalar" Click="ButtonUninstallClick" />
+                <wpf:StiTextBox Name="textInstalled" Margin="4" Width="150" Grid.Column="2" Grid.Row="0" HorizontalContentAlignment="Center" VerticalAlignment="Center" IsReadOnly="True" Text="Estado" />
+                <wpf:ProgressControl Name="progressInstall" Grid.Column="1" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center" IsActive="False" />
+                <wpf:ProgressControl Name="progressUnistall" Grid.Column="1" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center" IsActive="False" />
+                <TextBlock Name="textErrorInstall" Margin="10" Grid.Row="2" Grid.ColumnSpan="3" Visibility="Collapsed" TextWrapping="Wrap" Foreground="#FFFF0000" />
+            </Grid>
+        </wpf:CloudGroupBox>
+        <wpf:CloudGroupBox Grid.Row="1" Header="Estado" Margin="0,0,0,4">
+            <Grid Margin="4,12,4,4">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition Width="40" />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <wpf:StiButton Name="buttonStart" Margin="4" Width="150" Grid.Row="0" Content="Iniciar" Click="ButtonStartClick" />
+                <wpf:StiButton Name="buttonStop" Margin="4" Width="150" Grid.Row="1" Content="Detener" Click="ButtonStopClick" />
+                <wpf:StiButton Name="buttonRestart" Margin="4" Width="150" Grid.Row="2" Content="Reiniciar" Click="ButtonRestartClick" />
+                <wpf:StiTextBox Name="textStarted" Margin="4" Width="150" Grid.Column="2" Grid.Row="0" HorizontalContentAlignment="Center" VerticalAlignment="Center" IsReadOnly="True" Foreground="#FF008000" FontWeight="Bold" Text="Corriendo" />
+                <wpf:StiTextBox Name="textStopped" Margin="4" Width="150" Grid.Column="2" Grid.Row="1" HorizontalContentAlignment="Center" VerticalAlignment="Center" IsReadOnly="True" Foreground="#FFFF0000" FontWeight="Bold" Text="Detenido" />
+                <wpf:ProgressControl Name="progressStart" Grid.Column="1" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center" IsActive="False" />
+                <wpf:ProgressControl Name="progressStop" Grid.Column="1" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center" IsActive="False" />
+                <wpf:ProgressControl Name="progressRestart" Grid.Column="1" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center" IsActive="False" />
+                <TextBlock Name="textErrorStatus" Margin="10" Grid.Row="3" Grid.ColumnSpan="3" TextWrapping="Wrap" Foreground="#FFFF0000" Visibility="Collapsed" />
+                <StackPanel Name="panelProcessorError" Grid.Row="4" Grid.ColumnSpan="3" Margin="40, 4, 4, 4" Visibility="Collapsed" Orientation="Horizontal">
+                    <Image Name="imageProcessorError" Width="32" Height="32" SnapsToDevicePixels="True" Margin="0,10" VerticalAlignment="Center" Stretch="Fill" IsHitTestVisible="True" />
+                    <TextBlock Name="textProcessorError" Margin="4,0,0,0" VerticalAlignment="Center" TextWrapping="Wrap" IsHitTestVisible="True" />
+                </StackPanel>
+            </Grid>
+        </wpf:CloudGroupBox>
+        <wpf:CloudGroupBox Grid.Row="2" Header="Hilos de Ejecución" Margin="0,0,0,4">
+            <Grid Margin="4, 12, 4, 4">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition Width="40" />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <wpf:StiComboBox Name="comboBoxThreadCount" HorizontalAlignment="Center" Width="150" Margin="4" SelectedIndex="0" VerticalAlignment="Center" VerticalContentAlignment="Stretch" SelectionChanged="ComboBoxThreadCount_SelectionChanged">
+                    <wpf:StiComboBoxItem Content="1" />
+                    <wpf:StiComboBoxItem Content="2" />
+                    <wpf:StiComboBoxItem Content="3" />
+                    <wpf:StiComboBoxItem Content="4" />
+                    <wpf:StiComboBoxItem Content="5" />
+                    <wpf:StiComboBoxItem Content="6" />
+                    <wpf:StiComboBoxItem Content="7" />
+                    <wpf:StiComboBoxItem Content="8" />
+                    <wpf:StiComboBoxItem Content="9" />
+                    <wpf:StiComboBoxItem Content="10" />
+                    <wpf:StiComboBoxItem Content="11" />
+                    <wpf:StiComboBoxItem Content="12" />
+                    <wpf:StiComboBoxItem Content="13" />
+                    <wpf:StiComboBoxItem Content="14" />
+                    <wpf:StiComboBoxItem Content="15" />
+                    <wpf:StiComboBoxItem Content="16" />
+                </wpf:StiComboBox>
+            </Grid>
+        </wpf:CloudGroupBox>
+        <Grid Name="panelTreadRestart" Row="3" Margin="15, 0" Visibility="Collapsed">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="52" />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+            <Image Name="imageThreadRestart" Width="32" Height="32" SnapsToDevicePixels="True" Margin="0, 10" HorizontalAlignment="Center" VerticalAlignment="Center" Stretch="Fill" IsHitTestVisible="False" />
+            <TextBlock Name="textThreadRestart" Grid.Column="1" Margin="4,0,0,0" VerticalAlignment="Center" TextWrapping="Wrap" Text="Debes reiniciar el agente para aplicar los cambios!" IsHitTestVisible="False" />
+        </Grid>
+        <Grid Name="panelRunAsAdministrator" Row="5" Margin="15,0" Visibility="Collapsed">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="52" />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <Image Name="imageRunAsAdministratorWarning" Width="32" Height="32" SnapsToDevicePixels="True" Margin="0,10" HorizontalAlignment="Center" VerticalAlignment="Center" Stretch="Fill" IsHitTestVisible="False" />
+            <TextBlock Name="textRunAsAdministrator" Grid.Column="1" Margin="4,0,0,0" VerticalAlignment="Center" TextWrapping="Wrap" Text="La aplicación del controlador se ejecuta sin derechos de administrador. Es posible que el cambio de su estado no esté disponible." IsHitTestVisible="False" />
+            <wpf:StiButton Name="buttonRunAsAdministrator" Grid.Row="1" Grid.ColumnSpan="2" Padding="12,0,12,0" Margin="0,0,0,8" HorizontalAlignment="Right" Content="Ejecutar Como Administrador" Click="OnRunAsAdministratorClick" />
+        </Grid>
+    </Grid>
+</UserControl>

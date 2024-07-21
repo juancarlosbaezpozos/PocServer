@@ -1,0 +1,51 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<UserControl 
+    x:Class="Principal.Server.Controller.Controls.StiStorageDatabaseControl" 
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" 
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+    xmlns:wpf="schemas-principal-com:wpf-controls-V2">
+    <wpf:CloudGroupBox Header="Base de Datos">
+        <Grid Margin="8,0,8,4">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <wpf:TextBlockInfo Name="labelType" VerticalAlignment="Center" Text="Tipo:" Margin="12,4,4,4" />
+            <Grid Row="2" Margin="4">
+                <wpf:StiTextBox Name="textBoxConnectionString" Height="95" TextWrapping="Wrap" AcceptsReturn="True" AcceptsTab="False" VerticalScrollBarVisibility="Auto" Padding="0,0,44,0" TabIndex="3" TextChanged="TextBoxConnectionString_TextChanged" SelectionChanged="TextBoxConnectionString_SelectionChanged">
+                    <FrameworkElement.ContextMenu>
+                        <wpf:StiContextMenu>
+                            <wpf:StiMenuItem Name="menuItemCut" Header="Cortar" InputGestureText="Ctrl+X" Click="MenuItemCut_Click">
+                                <MenuItem.Icon>
+                                    <Image Name="imageCut" Width="16" Height="16" SnapsToDevicePixels="True" Stretch="Fill" IsHitTestVisible="False" />
+                                </MenuItem.Icon>
+                            </wpf:StiMenuItem>
+                            <wpf:StiMenuItem Name="menuItemCopy" Header="Copiar" InputGestureText="Ctrl+C" Click="MenuItemCopy_Click">
+                                <MenuItem.Icon>
+                                    <Image Name="imageCopy" Width="16" Height="16" SnapsToDevicePixels="True" Stretch="Fill" IsHitTestVisible="False" />
+                                </MenuItem.Icon>
+                            </wpf:StiMenuItem>
+                            <wpf:StiMenuItem Name="menuItemDatabasePaste" Header="Pegar" InputGestureText="Ctrl+P" Click="MenuItemPaste_Click">
+                                <MenuItem.Icon>
+                                    <Image Name="imagePaste" Width="16" Height="16" SnapsToDevicePixels="True" Stretch="Fill" IsHitTestVisible="False" />
+                                </MenuItem.Icon>
+                            </wpf:StiMenuItem>
+                        </wpf:StiContextMenu>
+                    </FrameworkElement.ContextMenu>
+                </wpf:StiTextBox>
+            </Grid>
+            <StackPanel Grid.Row="2" Margin="4,12,12,0" HorizontalAlignment="Right" VerticalAlignment="Top">
+                <wpf:StiButton Name="buttonDatabaseClean" VerticalAlignment="Top" Width="24" Height="24" Margin="0,4,0,0" TabIndex="5" Click="ButtonDatabaseClean_Click">
+                    <Image Name="imageButtonClean" Width="16" Height="16" SnapsToDevicePixels="True" Stretch="Fill" IsHitTestVisible="False" />
+                </wpf:StiButton>
+                <wpf:StiButton Name="buttonTestConnection" VerticalAlignment="Top" Width="24" Height="24" Margin="0,4,0,0" TabIndex="6" Click="ButtonTestConnection_Click">
+                    <Image Name="imageButtonTest" Width="16" Height="16" SnapsToDevicePixels="True" Stretch="Fill" IsHitTestVisible="False" />
+                </wpf:StiButton>
+                <wpf:ProgressControl Name="progressTestConnection" Visibility="Collapsed" Margin="0,-26,0,0" />
+            </StackPanel>
+        </Grid>
+    </wpf:CloudGroupBox>
+</UserControl>

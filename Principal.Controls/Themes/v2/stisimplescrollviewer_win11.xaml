@@ -1,0 +1,350 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:controls="clr-namespace:Principal.Controls.Core">
+    <SolidColorBrush x:Key="office15ScrollBarNormalBorderBrush" Color="#ababab" />
+    <SolidColorBrush x:Key="office15ScrollBarGlyph" Color="#777777" />
+    <SolidColorBrush x:Key="office15ScrollBarMOBackground" Color="#f0f0f0" />
+    <SolidColorBrush x:Key="office15ScrollBarPressedBorderBrush" Color="#777777" />
+    <SolidColorBrush x:Key="StiScrollBarWin11Fill" Color="#a8abac" />
+    <SolidColorBrush x:Key="StiScrollBarWin11FillPressed" Color="#5e5f5d" />
+    <Style x:Key="StiScrollBarPageButton" TargetType="{x:Type RepeatButton}">
+        <Setter Property="FrameworkElement.OverridesDefaultStyle" Value="true" />
+        <Setter Property="IsTabStop" Value="false" />
+        <Setter Property="Focusable" Value="false" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type RepeatButton}">
+                    <Rectangle Fill="#00FFFFFF" />
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    <Style x:Key="StiScrollBarVerticalThumb" TargetType="{x:Type Thumb}">
+        <Setter Property="FrameworkElement.OverridesDefaultStyle" Value="true" />
+        <Setter Property="IsTabStop" Value="false" />
+        <Setter Property="Focusable" Value="false" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Thumb}">
+                    <Rectangle Name="bd" StrokeThickness="0" Width="8" RadiusX="3" RadiusY="3" Fill="{StaticResource StiScrollBarWin11Fill}" />
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="UIElement.IsMouseOver" Value="true">
+                            <Setter TargetName="bd" Property="Shape.Fill" Value="{StaticResource StiScrollBarWin11FillPressed}" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    <Style x:Key="StiScrollBarHorizontalThumb" TargetType="{x:Type Thumb}">
+        <Setter Property="FrameworkElement.OverridesDefaultStyle" Value="true" />
+        <Setter Property="IsTabStop" Value="false" />
+        <Setter Property="Focusable" Value="false" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Thumb}">
+                    <Rectangle Name="bd" StrokeThickness="0" Height="8" RadiusX="3" RadiusY="3" Fill="{StaticResource StiScrollBarWin11Fill}" />
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="UIElement.IsMouseOver" Value="true">
+                            <Setter TargetName="bd" Property="Shape.Fill" Value="{StaticResource StiScrollBarWin11FillPressed}" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    <Style x:Key="StiScrollBarLineVerticalUpButton" TargetType="{x:Type RepeatButton}">
+        <Setter Property="FrameworkElement.OverridesDefaultStyle" Value="true" />
+        <Setter Property="Focusable" Value="false" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type RepeatButton}">
+                    <Border Background="#00FFFFFF">
+                        <Path Name="pt" HorizontalAlignment="Center" VerticalAlignment="Center" IsHitTestVisible="False" Width="11" Height="9" Stretch="Uniform" RenderTransformOrigin="0.5,0.5" Data="M3,16 C3,16 1,16 1,14 L9,2 C9,2 11,1 13,2 L21,14 C21,14 21,16 19,16" Fill="{StaticResource StiScrollBarWin11Fill}">
+                            <UIElement.RenderTransform>
+                                <ScaleTransform />
+                            </UIElement.RenderTransform>
+                        </Path>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="UIElement.IsMouseOver" Value="true">
+                            <Setter TargetName="pt" Property="Shape.Fill" Value="{StaticResource StiScrollBarWin11FillPressed}" />
+                        </Trigger>
+                        <Trigger Property="IsPressed" Value="true">
+                            <Setter TargetName="pt" Property="Shape.Fill" Value="{StaticResource StiScrollBarWin11FillPressed}" />
+                            <TriggerBase.EnterActions>
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <DoubleAnimation Storyboard.TargetName="pt" Duration="0:0:0.2" To="0.8" DecelerationRatio="1" Storyboard.TargetProperty="(RenderTransform).ScaleX" />
+                                        <DoubleAnimation Storyboard.TargetName="pt" Duration="0:0:0.2" To="0.8" DecelerationRatio="1" Storyboard.TargetProperty="(RenderTransform).ScaleY" />
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </TriggerBase.EnterActions>
+                            <TriggerBase.ExitActions>
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <DoubleAnimation Storyboard.TargetName="pt" Duration="0:0:0.2" To="1" DecelerationRatio="1" Storyboard.TargetProperty="(RenderTransform).ScaleX" />
+                                        <DoubleAnimation Storyboard.TargetName="pt" Duration="0:0:0.2" To="1" DecelerationRatio="1" Storyboard.TargetProperty="(RenderTransform).ScaleY" />
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </TriggerBase.ExitActions>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    <Style x:Key="StiScrollBarLineVerticalDownButton" TargetType="{x:Type RepeatButton}">
+        <Setter Property="FrameworkElement.OverridesDefaultStyle" Value="true" />
+        <Setter Property="Focusable" Value="false" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type RepeatButton}">
+                    <Border Background="#00FFFFFF">
+                        <Path Name="pt" HorizontalAlignment="Center" VerticalAlignment="Center" IsHitTestVisible="False" Width="11" Height="9" Stretch="Uniform" RenderTransformOrigin="0.5,0.5" Data="M3,16 C3,16 1,16 1,14 L9,2 C9,2 11,1 13,2 L21,14 C21,14 21,16 19,16" Fill="{StaticResource StiScrollBarWin11Fill}">
+                            <UIElement.RenderTransform>
+                                <TransformGroup>
+                                    <RotateTransform Angle="180" />
+                                    <ScaleTransform />
+                                </TransformGroup>
+                            </UIElement.RenderTransform>
+                        </Path>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="UIElement.IsMouseOver" Value="true">
+                            <Setter TargetName="pt" Property="Shape.Fill" Value="{StaticResource StiScrollBarWin11FillPressed}" />
+                        </Trigger>
+                        <Trigger Property="IsPressed" Value="true">
+                            <Setter TargetName="pt" Property="Shape.Fill" Value="{StaticResource StiScrollBarWin11FillPressed}" />
+                            <TriggerBase.EnterActions>
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <DoubleAnimation Storyboard.TargetName="pt" Duration="0:0:0.2" To="0.8" DecelerationRatio="1" Storyboard.TargetProperty="(RenderTransform).Children[1].ScaleX" />
+                                        <DoubleAnimation Storyboard.TargetName="pt" Duration="0:0:0.2" To="0.8" DecelerationRatio="1" Storyboard.TargetProperty="(RenderTransform).Children[1].ScaleY" />
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </TriggerBase.EnterActions>
+                            <TriggerBase.ExitActions>
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <DoubleAnimation Storyboard.TargetName="pt" Duration="0:0:0.2" To="1" DecelerationRatio="1" Storyboard.TargetProperty="(RenderTransform).Children[1].ScaleX" />
+                                        <DoubleAnimation Storyboard.TargetName="pt" Duration="0:0:0.2" To="1" DecelerationRatio="1" Storyboard.TargetProperty="(RenderTransform).Children[1].ScaleY" />
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </TriggerBase.ExitActions>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    <Style x:Key="StiScrollBarLineHorizontalUpButton" TargetType="{x:Type RepeatButton}">
+        <Setter Property="FrameworkElement.OverridesDefaultStyle" Value="true" />
+        <Setter Property="Focusable" Value="false" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type RepeatButton}">
+                    <Border Background="#00FFFFFF">
+                        <Path Name="pt" HorizontalAlignment="Center" VerticalAlignment="Center" IsHitTestVisible="False" Width="11" Height="9" Stretch="Uniform" RenderTransformOrigin="0.5,0.5" Data="M3,16 C3,16 1,16 1,14 L9,2 C9,2 11,1 13,2 L21,14 C21,14 21,16 19,16" Fill="{StaticResource StiScrollBarWin11Fill}">
+                            <UIElement.RenderTransform>
+                                <TransformGroup>
+                                    <RotateTransform Angle="270" />
+                                    <ScaleTransform />
+                                </TransformGroup>
+                            </UIElement.RenderTransform>
+                        </Path>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="UIElement.IsMouseOver" Value="true">
+                            <Setter TargetName="pt" Property="Shape.Fill" Value="{StaticResource StiScrollBarWin11FillPressed}" />
+                        </Trigger>
+                        <Trigger Property="IsPressed" Value="true">
+                            <Setter TargetName="pt" Property="Shape.Fill" Value="{StaticResource StiScrollBarWin11FillPressed}" />
+                            <TriggerBase.EnterActions>
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <DoubleAnimation Storyboard.TargetName="pt" Duration="0:0:0.2" To="0.8" DecelerationRatio="1" Storyboard.TargetProperty="(RenderTransform).Children[1].ScaleX" />
+                                        <DoubleAnimation Storyboard.TargetName="pt" Duration="0:0:0.2" To="0.8" DecelerationRatio="1" Storyboard.TargetProperty="(RenderTransform).Children[1].ScaleY" />
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </TriggerBase.EnterActions>
+                            <TriggerBase.ExitActions>
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <DoubleAnimation Storyboard.TargetName="pt" Duration="0:0:0.2" To="1" DecelerationRatio="1" Storyboard.TargetProperty="(RenderTransform).Children[1].ScaleX" />
+                                        <DoubleAnimation Storyboard.TargetName="pt" Duration="0:0:0.2" To="1" DecelerationRatio="1" Storyboard.TargetProperty="(RenderTransform).Children[1].ScaleY" />
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </TriggerBase.ExitActions>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    <Style x:Key="StiScrollBarLineHorizontalDownButton" TargetType="{x:Type RepeatButton}">
+        <Setter Property="FrameworkElement.OverridesDefaultStyle" Value="true" />
+        <Setter Property="Focusable" Value="false" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type RepeatButton}">
+                    <Border Background="#00FFFFFF">
+                        <Path Name="pt" HorizontalAlignment="Center" VerticalAlignment="Center" IsHitTestVisible="False" Width="11" Height="9" Stretch="Uniform" RenderTransformOrigin="0.5,0.5" Data="M3,16 C3,16 1,16 1,14 L9,2 C9,2 11,1 13,2 L21,14 C21,14 21,16 19,16" Fill="{StaticResource StiScrollBarWin11Fill}">
+                            <UIElement.RenderTransform>
+                                <TransformGroup>
+                                    <RotateTransform Angle="90" />
+                                    <ScaleTransform />
+                                </TransformGroup>
+                            </UIElement.RenderTransform>
+                        </Path>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="UIElement.IsMouseOver" Value="true">
+                            <Setter TargetName="pt" Property="Shape.Fill" Value="{StaticResource StiScrollBarWin11FillPressed}" />
+                        </Trigger>
+                        <Trigger Property="IsPressed" Value="true">
+                            <Setter TargetName="pt" Property="Shape.Fill" Value="{StaticResource StiScrollBarWin11FillPressed}" />
+                            <TriggerBase.EnterActions>
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <DoubleAnimation Storyboard.TargetName="pt" Duration="0:0:0.2" To="0.8" DecelerationRatio="1" Storyboard.TargetProperty="(RenderTransform).Children[1].ScaleX" />
+                                        <DoubleAnimation Storyboard.TargetName="pt" Duration="0:0:0.2" To="0.8" DecelerationRatio="1" Storyboard.TargetProperty="(RenderTransform).Children[1].ScaleY" />
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </TriggerBase.EnterActions>
+                            <TriggerBase.ExitActions>
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <DoubleAnimation Storyboard.TargetName="pt" Duration="0:0:0.2" To="1" DecelerationRatio="1" Storyboard.TargetProperty="(RenderTransform).Children[1].ScaleX" />
+                                        <DoubleAnimation Storyboard.TargetName="pt" Duration="0:0:0.2" To="1" DecelerationRatio="1" Storyboard.TargetProperty="(RenderTransform).Children[1].ScaleY" />
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </TriggerBase.ExitActions>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    <ControlTemplate x:Key="StiVerticalScrollBar" TargetType="{x:Type ScrollBar}">
+        <Grid Name="rootGrid" Background="#00FFFFFF">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="15" />
+                <RowDefinition />
+                <RowDefinition Height="15" />
+            </Grid.RowDefinitions>
+            <RepeatButton Name="buttonUp" Visibility="Hidden" Height="15" Command="ScrollBar.LineUpCommand" Style="{StaticResource StiScrollBarLineVerticalUpButton}" />
+            <Track Name="PART_Track" Grid.Row="1" IsDirectionReversed="true" RenderTransformOrigin="0.5,0.5">
+                <Track.DecreaseRepeatButton>
+                    <RepeatButton Command="ScrollBar.PageUpCommand" Style="{StaticResource StiScrollBarPageButton}" />
+                </Track.DecreaseRepeatButton>
+                <Track.Thumb>
+                    <Thumb BorderThickness="{TemplateBinding Control.BorderThickness}" Margin="1,0" Style="{StaticResource StiScrollBarVerticalThumb}" />
+                </Track.Thumb>
+                <Track.IncreaseRepeatButton>
+                    <RepeatButton Command="ScrollBar.PageDownCommand" Style="{StaticResource StiScrollBarPageButton}" />
+                </Track.IncreaseRepeatButton>
+                <UIElement.RenderTransform>
+                    <ScaleTransform ScaleX="0.5" />
+                </UIElement.RenderTransform>
+            </Track>
+            <RepeatButton Name="buttonDown" Grid.Row="2" Visibility="Hidden" Height="15" Command="ScrollBar.LineDownCommand" Style="{StaticResource StiScrollBarLineVerticalDownButton}" />
+        </Grid>
+        <ControlTemplate.Triggers>
+            <Trigger Property="UIElement.IsMouseOver" Value="true">
+                <Setter TargetName="buttonUp" Property="UIElement.Visibility" Value="Visible" />
+                <Setter TargetName="buttonDown" Property="UIElement.Visibility" Value="Visible" />
+                <TriggerBase.EnterActions>
+                    <BeginStoryboard>
+                        <Storyboard>
+                            <DoubleAnimation Storyboard.TargetName="PART_Track" Duration="0:0:0.2" To="1" DecelerationRatio="1" Storyboard.TargetProperty="(RenderTransform).ScaleX" />
+                        </Storyboard>
+                    </BeginStoryboard>
+                </TriggerBase.EnterActions>
+                <TriggerBase.ExitActions>
+                    <BeginStoryboard>
+                        <Storyboard>
+                            <DoubleAnimation Storyboard.TargetName="PART_Track" Duration="0:0:0.2" AccelerationRatio="1" Storyboard.TargetProperty="(RenderTransform).ScaleX" />
+                        </Storyboard>
+                    </BeginStoryboard>
+                </TriggerBase.ExitActions>
+            </Trigger>
+            <Trigger Property="UIElement.IsEnabled" Value="false">
+                <Setter TargetName="rootGrid" Property="UIElement.Opacity" Value="0.4" />
+            </Trigger>
+        </ControlTemplate.Triggers>
+    </ControlTemplate>
+    <ControlTemplate x:Key="StiHorizontalScrollBar" TargetType="{x:Type ScrollBar}">
+        <Grid Name="rootGrid" Background="#00FFFFFF">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="15" />
+                <ColumnDefinition />
+                <ColumnDefinition Width="15" />
+            </Grid.ColumnDefinitions>
+            <RepeatButton Name="buttonUp" Visibility="Hidden" Width="15" Command="ScrollBar.LineLeftCommand" Style="{StaticResource StiScrollBarLineHorizontalUpButton}" />
+            <Track Name="PART_Track" Grid.Column="1" IsDirectionReversed="False" RenderTransformOrigin="0.5,0.5">
+                <Track.DecreaseRepeatButton>
+                    <RepeatButton Command="ScrollBar.PageLeftCommand" Style="{StaticResource StiScrollBarPageButton}" />
+                </Track.DecreaseRepeatButton>
+                <Track.Thumb>
+                    <Thumb Margin="0,1" Style="{StaticResource StiScrollBarHorizontalThumb}" />
+                </Track.Thumb>
+                <Track.IncreaseRepeatButton>
+                    <RepeatButton Command="ScrollBar.PageRightCommand" Style="{StaticResource StiScrollBarPageButton}" />
+                </Track.IncreaseRepeatButton>
+                <UIElement.RenderTransform>
+                    <ScaleTransform ScaleY="0.5" />
+                </UIElement.RenderTransform>
+            </Track>
+            <RepeatButton Name="buttonDown" Visibility="Hidden" Grid.Column="2" Width="15" Command="ScrollBar.LineRightCommand" Style="{StaticResource StiScrollBarLineHorizontalDownButton}" />
+        </Grid>
+        <ControlTemplate.Triggers>
+            <Trigger Property="UIElement.IsMouseOver" Value="true">
+                <Setter TargetName="buttonUp" Property="UIElement.Visibility" Value="Visible" />
+                <Setter TargetName="buttonDown" Property="UIElement.Visibility" Value="Visible" />
+                <TriggerBase.EnterActions>
+                    <BeginStoryboard>
+                        <Storyboard>
+                            <DoubleAnimation Storyboard.TargetName="PART_Track" Duration="0:0:0.2" To="1" DecelerationRatio="1" Storyboard.TargetProperty="(RenderTransform).ScaleY" />
+                        </Storyboard>
+                    </BeginStoryboard>
+                </TriggerBase.EnterActions>
+                <TriggerBase.ExitActions>
+                    <BeginStoryboard>
+                        <Storyboard>
+                            <DoubleAnimation Storyboard.TargetName="PART_Track" Duration="0:0:0.2" AccelerationRatio="1" Storyboard.TargetProperty="(RenderTransform).ScaleY" />
+                        </Storyboard>
+                    </BeginStoryboard>
+                </TriggerBase.ExitActions>
+            </Trigger>
+            <Trigger Property="UIElement.IsEnabled" Value="false">
+                <Setter TargetName="rootGrid" Property="UIElement.Opacity" Value="0.4" />
+            </Trigger>
+        </ControlTemplate.Triggers>
+    </ControlTemplate>
+    <Style x:Key="{x:Type controls:StiSimpleScrollViewer}" TargetType="{x:Type controls:StiSimpleScrollViewer}">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type controls:StiSimpleScrollViewer}">
+                    <Grid Name="Grid">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+                        <ScrollContentPresenter Name="PART_ScrollContentPresenter" Margin="{TemplateBinding Control.Padding}" Content="{TemplateBinding ContentControl.Content}" Grid.RowSpan="2" Grid.ColumnSpan="2" ContentTemplate="{TemplateBinding ContentControl.ContentTemplate}" CanContentScroll="{TemplateBinding ScrollViewer.CanContentScroll}" CanHorizontallyScroll="False" CanVerticallyScroll="False" />
+                        <ScrollBar Name="PART_VerticalScrollBar" Visibility="{TemplateBinding ScrollViewer.ComputedVerticalScrollBarVisibility}" Width="15" Opacity="0" Cursor="Arrow" Grid.Column="1" ViewportSize="{TemplateBinding ScrollViewer.ViewportHeight}" Maximum="{TemplateBinding ScrollViewer.ScrollableHeight}" Minimum="0" AutomationProperties.AutomationId="StiVerticalScrollBar" Template="{StaticResource StiVerticalScrollBar}" Value="{Binding Path=VerticalOffset, Mode=OneWay, RelativeSource={RelativeSource TemplatedParent}}" />
+                        <ScrollBar Name="PART_HorizontalScrollBar" Visibility="{TemplateBinding ScrollViewer.ComputedHorizontalScrollBarVisibility}" Cursor="Arrow" Height="15" Opacity="0" Grid.Row="1" Orientation="Horizontal" ViewportSize="{TemplateBinding ScrollViewer.ViewportWidth}" Maximum="{TemplateBinding ScrollViewer.ScrollableWidth}" Minimum="0" AutomationProperties.AutomationId="StiHorizontalScrollBar" Template="{StaticResource StiHorizontalScrollBar}" Value="{Binding Path=HorizontalOffset, Mode=OneWay, RelativeSource={RelativeSource TemplatedParent}}" />
+                    </Grid>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="UIElement.IsMouseOver" Value="true">
+                            <Setter TargetName="PART_VerticalScrollBar" Property="UIElement.Opacity" Value="1" />
+                            <Setter TargetName="PART_HorizontalScrollBar" Property="UIElement.Opacity" Value="1" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+</ResourceDictionary>

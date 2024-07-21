@@ -1,0 +1,79 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{B384A31D-0B80-4563-BA61-A2760DEE08A9}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Principal.Server.Check</RootNamespace>
+    <AssemblyName>Principal.Server.Check</AssemblyName>
+    <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <Deterministic>true</Deterministic>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.ServiceProcess" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="BuildCheckDelegate.cs" />
+    <Compile Include="StiCheck.cs" />
+    <Compile Include="StiCheckContainer.cs" />
+    <Compile Include="StiCheckEngine.cs" />
+    <Compile Include="StiCheckServerStatus.cs" />
+    <Compile Include="StiEndingDiskSpaceCheck.cs" />
+    <Compile Include="StiIisIsNotInstalledCheck.cs" />
+    <Compile Include="StiIisIsNotRunningCheck.cs" />
+    <Compile Include="StiInstallServiceAction.cs" />
+    <Compile Include="StiLowDiskSpaceCheck.cs" />
+    <Compile Include="StiNotEnoughDiskSpaceCheck.cs" />
+    <Compile Include="StiRunDiskCleanerAction.cs" />
+    <Compile Include="StiServerCheck.cs" />
+    <Compile Include="StiServerCheckerAction.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="StiStartServiceAction.cs" />
+    <Compile Include="StiWindowsServiceIsNotInstalledCheck.cs" />
+    <Compile Include="StiWindowsServiceIsNotRunningCheck.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Principal.Server\Principal.Server.csproj">
+      <Project>{209108cd-9abf-4532-9f1c-2706aa835387}</Project>
+      <Name>Principal.Server</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Server.Agent\Principal.Server.Agent.csproj">
+      <Project>{b2003a85-356f-4e38-9683-0db7a345b6de}</Project>
+      <Name>Principal.Server.Agent</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Server.Objects\Principal.Server.Objects.csproj">
+      <Project>{222e7dae-648e-478c-92a4-9e478a068a55}</Project>
+      <Name>Principal.Server.Objects</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

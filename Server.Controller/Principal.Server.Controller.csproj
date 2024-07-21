@@ -1,0 +1,173 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
+  <PropertyGroup>
+    <AssemblyName>Principal.Server.Controller</AssemblyName>
+    <GenerateAssemblyInfo>False</GenerateAssemblyInfo>
+    <OutputType>WinExe</OutputType>
+    <UseWPF>True</UseWPF>
+    <TargetFramework>net462</TargetFramework>
+    <Prefer32Bit>True</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup>
+    <LangVersion>11.0</LangVersion>
+    <AllowUnsafeBlocks>True</AllowUnsafeBlocks>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>app.ico</ApplicationIcon>
+    <RootNamespace />
+    <StartupObject>Principal.Server.Controller.App</StartupObject>
+  </PropertyGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="app.ico" />
+    <Resource Include="Principal\Server\Controller\app.net.alarm.ico" />
+    <Resource Include="Principal\Server\Controller\app.net.ico" />
+    <EmbeddedResource Include="Principal\Server\Controller\Images\Items\Build.png" />
+    <EmbeddedResource Include="Principal\Server\Controller\Images\Items\Build_x1_5.png" />
+    <EmbeddedResource Include="Principal\Server\Controller\Images\Items\Build_x2.png" />
+    <EmbeddedResource Include="Principal\Server\Controller\Images\Items\Build_x3.png" />
+    <EmbeddedResource Include="Principal\Server\Controller\Images\Items\Build_x4.png" />
+    <EmbeddedResource Include="Principal\Server\Controller\Images\Items\Check.png" />
+    <EmbeddedResource Include="Principal\Server\Controller\Images\Items\CheckerSettings.png" />
+    <EmbeddedResource Include="Principal\Server\Controller\Images\Items\CheckerSettings_x1_5.png" />
+    <EmbeddedResource Include="Principal\Server\Controller\Images\Items\CheckerSettings_x2.png" />
+    <EmbeddedResource Include="Principal\Server\Controller\Images\Items\CheckerSettings_x3.png" />
+    <EmbeddedResource Include="Principal\Server\Controller\Images\Items\CheckerSettings_x4.png" />
+    <EmbeddedResource Include="Principal\Server\Controller\Images\Items\Check_x1_5.png" />
+    <EmbeddedResource Include="Principal\Server\Controller\Images\Items\Check_x2.png" />
+    <EmbeddedResource Include="Principal\Server\Controller\Images\Items\Check_x3.png" />
+    <EmbeddedResource Include="Principal\Server\Controller\Images\Items\Check_x4.png" />
+    <EmbeddedResource Include="Principal\Server\Controller\Images\Items\ClearContent.png" />
+    <EmbeddedResource Include="Principal\Server\Controller\Images\Items\ClearContent_x1_5.png" />
+    <EmbeddedResource Include="Principal\Server\Controller\Images\Items\ClearContent_x2.png" />
+    <EmbeddedResource Include="Principal\Server\Controller\Images\Items\ClearContent_x3.png" />
+    <EmbeddedResource Include="Principal\Server\Controller\Images\Items\ClearContent_x4.png" />
+    <EmbeddedResource Include="Principal\Server\Controller\Images\Items\Copy.png" />
+    <EmbeddedResource Include="Principal\Server\Controller\Images\Items\Copy_x1_5.png" />
+    <EmbeddedResource Include="Principal\Server\Controller\Images\Items\Copy_x2.png" />
+    <EmbeddedResource Include="Principal\Server\Controller\Images\Items\Copy_x3.png" />
+    <EmbeddedResource Include="Principal\Server\Controller\Images\Items\Copy_x4.png" />
+    <EmbeddedResource Include="Principal\Server\Controller\Images\Items\Cut.png" />
+    <EmbeddedResource Include="Principal\Server\Controller\Images\Items\Cut_x1_5.png" />
+    <EmbeddedResource Include="Principal\Server\Controller\Images\Items\Cut_x2.png" />
+    <EmbeddedResource Include="Principal\Server\Controller\Images\Items\Cut_x3.png" />
+    <EmbeddedResource Include="Principal\Server\Controller\Images\Items\Cut_x4.png" />
+    <EmbeddedResource Include="Principal\Server\Controller\Images\Items\Error.png" />
+    <EmbeddedResource Include="Principal\Server\Controller\Images\Items\Error_x1_5.png" />
+    <EmbeddedResource Include="Principal\Server\Controller\Images\Items\Error_x2.png" />
+    <EmbeddedResource Include="Principal\Server\Controller\Images\Items\Error_x3.png" />
+    <EmbeddedResource Include="Principal\Server\Controller\Images\Items\Error_x4.png" />
+    <EmbeddedResource Include="Principal\Server\Controller\Images\Items\FileOpen.png" />
+    <EmbeddedResource Include="Principal\Server\Controller\Images\Items\FileOpen_x1_5.png" />
+    <EmbeddedResource Include="Principal\Server\Controller\Images\Items\FileOpen_x2.png" />
+    <EmbeddedResource Include="Principal\Server\Controller\Images\Items\FileOpen_x3.png" />
+    <EmbeddedResource Include="Principal\Server\Controller\Images\Items\FileOpen_x4.png" />
+    <EmbeddedResource Include="Principal\Server\Controller\Images\Items\FileSave.png" />
+    <EmbeddedResource Include="Principal\Server\Controller\Images\Items\FileSave_x1_5.png" />
+    <EmbeddedResource Include="Principal\Server\Controller\Images\Items\FileSave_x2.png" />
+    <EmbeddedResource Include="Principal\Server\Controller\Images\Items\FileSave_x3.png" />
+    <EmbeddedResource Include="Principal\Server\Controller\Images\Items\FileSave_x4.png" />
+    <EmbeddedResource Include="Principal\Server\Controller\Images\Items\Information.png" />
+    <EmbeddedResource Include="Principal\Server\Controller\Images\Items\Information_x1_5.png" />
+    <EmbeddedResource Include="Principal\Server\Controller\Images\Items\Information_x2.png" />
+    <EmbeddedResource Include="Principal\Server\Controller\Images\Items\Information_x3.png" />
+    <EmbeddedResource Include="Principal\Server\Controller\Images\Items\Information_x4.png" />
+    <EmbeddedResource Include="Principal\Server\Controller\Images\Items\Message.png" />
+    <EmbeddedResource Include="Principal\Server\Controller\Images\Items\Message_x1_5.png" />
+    <EmbeddedResource Include="Principal\Server\Controller\Images\Items\Message_x2.png" />
+    <EmbeddedResource Include="Principal\Server\Controller\Images\Items\Message_x3.png" />
+    <EmbeddedResource Include="Principal\Server\Controller\Images\Items\Message_x4.png" />
+    <EmbeddedResource Include="Principal\Server\Controller\Images\Items\Monitor.png" />
+    <EmbeddedResource Include="Principal\Server\Controller\Images\Items\Monitor_x1_5.png" />
+    <EmbeddedResource Include="Principal\Server\Controller\Images\Items\Monitor_x2.png" />
+    <EmbeddedResource Include="Principal\Server\Controller\Images\Items\Monitor_x3.png" />
+    <EmbeddedResource Include="Principal\Server\Controller\Images\Items\Monitor_x4.png" />
+    <EmbeddedResource Include="Principal\Server\Controller\Images\Items\Paste.png" />
+    <EmbeddedResource Include="Principal\Server\Controller\Images\Items\Paste_x1_5.png" />
+    <EmbeddedResource Include="Principal\Server\Controller\Images\Items\Paste_x2.png" />
+    <EmbeddedResource Include="Principal\Server\Controller\Images\Items\Paste_x3.png" />
+    <EmbeddedResource Include="Principal\Server\Controller\Images\Items\Paste_x4.png" />
+    <EmbeddedResource Include="Principal\Server\Controller\Images\Items\Refresh.png" />
+    <EmbeddedResource Include="Principal\Server\Controller\Images\Items\Refresh_x1_5.png" />
+    <EmbeddedResource Include="Principal\Server\Controller\Images\Items\Refresh_x2.png" />
+    <EmbeddedResource Include="Principal\Server\Controller\Images\Items\Refresh_x3.png" />
+    <EmbeddedResource Include="Principal\Server\Controller\Images\Items\Refresh_x4.png" />
+    <EmbeddedResource Include="Principal\Server\Controller\Images\Items\RenderingMessage.png" />
+    <EmbeddedResource Include="Principal\Server\Controller\Images\Items\RenderingMessage_x1_5.png" />
+    <EmbeddedResource Include="Principal\Server\Controller\Images\Items\RenderingMessage_x2.png" />
+    <EmbeddedResource Include="Principal\Server\Controller\Images\Items\RenderingMessage_x3.png" />
+    <EmbeddedResource Include="Principal\Server\Controller\Images\Items\RenderingMessage_x4.png" />
+    <EmbeddedResource Include="Principal\Server\Controller\Images\Items\ServerCheck.png" />
+    <EmbeddedResource Include="Principal\Server\Controller\Images\Items\ServerCheck_x1_5.png" />
+    <EmbeddedResource Include="Principal\Server\Controller\Images\Items\ServerCheck_x2.png" />
+    <EmbeddedResource Include="Principal\Server\Controller\Images\Items\ServerCheck_x3.png" />
+    <EmbeddedResource Include="Principal\Server\Controller\Images\Items\ServerCheck_x4.png" />
+    <EmbeddedResource Include="Principal\Server\Controller\Images\Items\ServerService.png" />
+    <EmbeddedResource Include="Principal\Server\Controller\Images\Items\ServerService_x1_5.png" />
+    <EmbeddedResource Include="Principal\Server\Controller\Images\Items\ServerService_x2.png" />
+    <EmbeddedResource Include="Principal\Server\Controller\Images\Items\ServerService_x3.png" />
+    <EmbeddedResource Include="Principal\Server\Controller\Images\Items\ServerService_x4.png" />
+    <EmbeddedResource Include="Principal\Server\Controller\Images\Items\ServerSmtp.png" />
+    <EmbeddedResource Include="Principal\Server\Controller\Images\Items\ServerSmtp_x1_5.png" />
+    <EmbeddedResource Include="Principal\Server\Controller\Images\Items\ServerSmtp_x2.png" />
+    <EmbeddedResource Include="Principal\Server\Controller\Images\Items\ServerSmtp_x3.png" />
+    <EmbeddedResource Include="Principal\Server\Controller\Images\Items\ServerSmtp_x4.png" />
+    <EmbeddedResource Include="Principal\Server\Controller\Images\Items\ServerStatusAlarm.png" />
+    <EmbeddedResource Include="Principal\Server\Controller\Images\Items\ServerStatusAlarm_x1_5.png" />
+    <EmbeddedResource Include="Principal\Server\Controller\Images\Items\ServerStatusAlarm_x2.png" />
+    <EmbeddedResource Include="Principal\Server\Controller\Images\Items\ServerStatusAlarm_x3.png" />
+    <EmbeddedResource Include="Principal\Server\Controller\Images\Items\ServerStatusAlarm_x4.png" />
+    <EmbeddedResource Include="Principal\Server\Controller\Images\Items\ServerStatusOk.png" />
+    <EmbeddedResource Include="Principal\Server\Controller\Images\Items\ServerStatusOk_x1_5.png" />
+    <EmbeddedResource Include="Principal\Server\Controller\Images\Items\ServerStatusOk_x2.png" />
+    <EmbeddedResource Include="Principal\Server\Controller\Images\Items\ServerStatusOk_x3.png" />
+    <EmbeddedResource Include="Principal\Server\Controller\Images\Items\ServerStatusOk_x4.png" />
+    <EmbeddedResource Include="Principal\Server\Controller\Images\Items\ServerStorage.png" />
+    <EmbeddedResource Include="Principal\Server\Controller\Images\Items\ServerStorage_x1_5.png" />
+    <EmbeddedResource Include="Principal\Server\Controller\Images\Items\ServerStorage_x2.png" />
+    <EmbeddedResource Include="Principal\Server\Controller\Images\Items\ServerStorage_x3.png" />
+    <EmbeddedResource Include="Principal\Server\Controller\Images\Items\ServerStorage_x4.png" />
+    <EmbeddedResource Include="Principal\Server\Controller\Images\Items\Settings.png" />
+    <EmbeddedResource Include="Principal\Server\Controller\Images\Items\Settings_x1_5.png" />
+    <EmbeddedResource Include="Principal\Server\Controller\Images\Items\Settings_x2.png" />
+    <EmbeddedResource Include="Principal\Server\Controller\Images\Items\Settings_x3.png" />
+    <EmbeddedResource Include="Principal\Server\Controller\Images\Items\Settings_x4.png" />
+    <EmbeddedResource Include="Principal\Server\Controller\Images\Items\Start.png" />
+    <EmbeddedResource Include="Principal\Server\Controller\Images\Items\Start_x1_5.png" />
+    <EmbeddedResource Include="Principal\Server\Controller\Images\Items\Start_x2.png" />
+    <EmbeddedResource Include="Principal\Server\Controller\Images\Items\Start_x3.png" />
+    <EmbeddedResource Include="Principal\Server\Controller\Images\Items\Start_x4.png" />
+    <EmbeddedResource Include="Principal\Server\Controller\Images\Items\Stop.png" />
+    <EmbeddedResource Include="Principal\Server\Controller\Images\Items\Stop_x1_5.png" />
+    <EmbeddedResource Include="Principal\Server\Controller\Images\Items\Stop_x2.png" />
+    <EmbeddedResource Include="Principal\Server\Controller\Images\Items\Stop_x3.png" />
+    <EmbeddedResource Include="Principal\Server\Controller\Images\Items\Stop_x4.png" />
+    <EmbeddedResource Include="Principal\Server\Controller\Images\Items\View.png" />
+    <EmbeddedResource Include="Principal\Server\Controller\Images\Items\View_x1_5.png" />
+    <EmbeddedResource Include="Principal\Server\Controller\Images\Items\View_x2.png" />
+    <EmbeddedResource Include="Principal\Server\Controller\Images\Items\View_x3.png" />
+    <EmbeddedResource Include="Principal\Server\Controller\Images\Items\View_x4.png" />
+    <EmbeddedResource Include="Principal\Server\Controller\Images\Items\Warning.png" />
+    <EmbeddedResource Include="Principal\Server\Controller\Images\Items\Warning_x1_5.png" />
+    <EmbeddedResource Include="Principal\Server\Controller\Images\Items\Warning_x2.png" />
+    <EmbeddedResource Include="Principal\Server\Controller\Images\Items\Warning_x3.png" />
+    <EmbeddedResource Include="Principal\Server\Controller\Images\Items\Warning_x4.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Principal.Controls\Principal.Controls.csproj" />
+    <ProjectReference Include="..\Principal.Server.Check\Principal.Server.Check.csproj" />
+    <ProjectReference Include="..\Principal.Server\Principal.Server.csproj" />
+    <ProjectReference Include="..\Server.Agent\Principal.Server.Agent.csproj" />
+    <ProjectReference Include="..\Server.Objects\Principal.Server.Objects.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="PresentationCore" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="WindowsBase" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Core" />
+    <Reference Include="Newtonsoft.Json"/>
+  </ItemGroup>
+</Project>
