@@ -71,22 +71,20 @@ public sealed class StiServerAgent : ServiceBase
     private static void RunInteractive(ServiceBase[] servicesToRun)
     {
         Console.WriteLine("Servicios corriendo en modo interactivo.");
-        Console.WriteLine();
 
         var onStartMethod = typeof(ServiceBase).GetMethod("OnStart",
             BindingFlags.Instance | BindingFlags.NonPublic);
 
         foreach (var service in servicesToRun)
         {
-            Console.Write("Iniciando {0}...", service.ServiceName);
+            Console.Write("\nIniciando {0}...", service.ServiceName);
             onStartMethod?.Invoke(service, new object[] { new string[] { } });
-            Console.Write("Iniciado");
+            Console.Write("\nIniciado");
         }
 
         Console.WriteLine();
-        Console.WriteLine();
         Console.WriteLine(
-            "Presione cualquier tecla para detener el servicio y terminar el proceso...");
+            "\nPresione cualquier tecla para detener el servicio y terminar el proceso...");
         Console.ReadKey();
         Console.WriteLine();
 
@@ -94,12 +92,12 @@ public sealed class StiServerAgent : ServiceBase
             BindingFlags.Instance | BindingFlags.NonPublic);
         foreach (var service in servicesToRun)
         {
-            Console.Write("Deteniendo {0}...", service.ServiceName);
+            Console.Write("\nDeteniendo {0}...", service.ServiceName);
             onStopMethod?.Invoke(service, null);
-            Console.WriteLine("Detenido");
+            Console.WriteLine("\nDetenido");
         }
 
-        Console.WriteLine("Todos los servicios detenidos.");
+        Console.WriteLine("\nTodos los servicios detenidos.");
         Thread.Sleep(1000);
     }
 }

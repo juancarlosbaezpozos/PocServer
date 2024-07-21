@@ -200,6 +200,7 @@ namespace Principal.Server
                     {
                         break;
                     }
+
                     Process();
                 }
                 StopRequired = false;
@@ -207,10 +208,7 @@ namespace Principal.Server
             }
             catch (ThreadAbortException)
             {
-                if (thread != null)
-                {
-                    thread.Abort();
-                }
+                thread?.Abort();
             }
         }
 

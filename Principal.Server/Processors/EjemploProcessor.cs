@@ -1,7 +1,7 @@
-﻿using Principal.Server.Objects;
-using System;
+﻿using System;
+using Principal.Server.Objects;
 
-namespace Principal.Server
+namespace Principal.Server.Processors
 {
     public class EjemploProcessor : StiProcessor
     {

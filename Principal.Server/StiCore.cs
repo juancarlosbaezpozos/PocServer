@@ -1,8 +1,11 @@
-﻿using Principal.Server.Objects;
+﻿using Microsoft.Owin.Host.HttpListener;
+using Microsoft.Owin.Hosting;
+using Principal.Server.Objects;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
+using Principal.Server.Processors;
 
 namespace Principal.Server
 {
@@ -36,6 +39,7 @@ namespace Principal.Server
         {
             LoadConfig();
             CreateProcessor(1, (int? index) => new EjemploProcessor(this, index));
+            CreateProcessor(1, index => new OwinServerProcessor(this, index));
 
             if (runProcessors)
             {
@@ -54,7 +58,6 @@ namespace Principal.Server
                 {
                     p.Pause();
                 });
-                //StiAppDomainWorker.ReleaseWorkers();
             }
             catch (Exception exception)
             {
@@ -86,6 +89,7 @@ namespace Principal.Server
                 {
                     p.Stop();
                 });
+
                 var timeSpan = TimeSpan.FromSeconds(10.0);
                 while (Processors.Any(processor => processor.ProcessorStatus != StiProcessorStatus.Stopped))
                 {
@@ -97,6 +101,7 @@ namespace Principal.Server
                         break;
                     }
                 }
+
                 foreach (var processor in Processors)
                 {
                     if (processor.ProcessorStatus != StiProcessorStatus.Stopped)
@@ -104,8 +109,8 @@ namespace Principal.Server
                         processor.Break();
                     }
                 }
+
                 Processors.Clear();
-                //StiAppDomainWorker.ReleaseWorkers();
             }
             catch (Exception exception)
             {
@@ -123,12 +128,13 @@ namespace Principal.Server
         {
             try
             {
-                return /*(TasksProcessor != null) ? TasksProcessor.ProcessorStatus :*/ StiProcessorStatus.NotInitialized;
+                return StiProcessorStatus.NotInitialized;
             }
             catch (Exception exception)
             {
                 System.Diagnostics.Debug.WriteLine(exception.Message);
             }
+
             return StiProcessorStatus.NotInitialized;
         }
 
