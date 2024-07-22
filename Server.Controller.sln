@@ -15,6 +15,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Principal.Controls", "Princ
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Principal.Server.Check", "Principal.Server.Check\Principal.Server.Check.csproj", "{B384A31D-0B80-4563-BA61-A2760DEE08A9}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Principal.Crypto", "Principal.Crypto\Principal.Crypto.csproj", "{3D72982F-66FE-48DF-B9DA-C7F610F50950}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -45,6 +47,10 @@ Global
 		{B384A31D-0B80-4563-BA61-A2760DEE08A9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B384A31D-0B80-4563-BA61-A2760DEE08A9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B384A31D-0B80-4563-BA61-A2760DEE08A9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3D72982F-66FE-48DF-B9DA-C7F610F50950}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3D72982F-66FE-48DF-B9DA-C7F610F50950}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3D72982F-66FE-48DF-B9DA-C7F610F50950}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3D72982F-66FE-48DF-B9DA-C7F610F50950}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -72,6 +72,18 @@ public sealed partial class StiCheckStatusControl : UserControl, IComponentConne
                         serverControl.tabControl.SelectedItem = serverControl.pageWindowsServices;
                     };
                 }
+
+                if (action is StiSuggestNewPortAction)
+                {
+                    action.OnAfterAction += delegate(StiServerCheckerAction sender)
+                    {
+                        if (sender is StiSuggestNewPortAction suggestNewPortAction)
+                        {
+                            //serverControl.tabControl.SelectedItem = serverControl.pageServerConfiguration;
+                            //serverControl.pageServerConfiguration.textBoxPort.Text = suggestNewPortAction.NewPort.ToString();
+                        }
+                    };
+                }
             }
         }
         base.Dispatcher.BeginInvoke(DispatcherPriority.Loaded, (Action)delegate

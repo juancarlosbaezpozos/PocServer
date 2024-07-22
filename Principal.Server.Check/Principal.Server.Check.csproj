@@ -53,11 +53,13 @@
     <Compile Include="StiInstallServiceAction.cs" />
     <Compile Include="StiLowDiskSpaceCheck.cs" />
     <Compile Include="StiNotEnoughDiskSpaceCheck.cs" />
+    <Compile Include="StiPortAvailabilityCheck.cs" />
     <Compile Include="StiRunDiskCleanerAction.cs" />
     <Compile Include="StiServerCheck.cs" />
     <Compile Include="StiServerCheckerAction.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="StiStartServiceAction.cs" />
+    <Compile Include="StiSuggestNewPortAction.cs" />
     <Compile Include="StiWindowsServiceIsNotInstalledCheck.cs" />
     <Compile Include="StiWindowsServiceIsNotRunningCheck.cs" />
   </ItemGroup>

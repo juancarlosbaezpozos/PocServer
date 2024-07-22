@@ -1,16 +1,18 @@
-﻿using Microsoft.Owin.Host.HttpListener;
-using Microsoft.Owin.Hosting;
+﻿using Microsoft.Extensions.Configuration;
 using Principal.Server.Objects;
+using Principal.Server.Processors;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading;
-using Principal.Server.Processors;
 
 namespace Principal.Server
 {
     public class StiCore : IStiCore
     {
+        private IConfiguration _configuration;
+
         public static StiCore Instance { get; private set; }
 
         public string SessionKey { get; set; }
@@ -32,14 +34,19 @@ namespace Principal.Server
 
         private void LoadConfig()
         {
-            //TODO: Load config
+            var builder = new ConfigurationBuilder()
+                .SetBasePath(Directory.GetCurrentDirectory())
+                .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true);
+
+            if (_configuration == null)
+                _configuration = builder.Build();
         }
 
         public virtual void Start(bool runProcessors = true)
         {
             LoadConfig();
             CreateProcessor(1, (int? index) => new EjemploProcessor(this, index));
-            CreateProcessor(1, index => new OwinServerProcessor(this, index));
+            CreateProcessor(1, index => new OwinServerProcessor(this, index, _configuration));
 
             if (runProcessors)
             {

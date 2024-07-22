@@ -5,7 +5,7 @@ namespace Principal.Server.Processors
 {
     public class EjemploProcessor : StiProcessor
     {
-        protected override TimeSpan SuspendTime { get; } = TimeSpan.FromSeconds(20.0);
+        protected override TimeSpan SuspendTime { get; } = TimeSpan.FromSeconds(20.0);  //tal vez dias
 
         public override string Name => "Ejemplo-Processor";
 
