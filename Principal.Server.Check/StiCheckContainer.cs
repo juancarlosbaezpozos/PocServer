@@ -22,8 +22,7 @@ namespace Principal.Server.Check
                         new StiIisIsNotRunningCheck(),
                         new StiWindowsServiceIsNotRunningCheck(),
                         new StiWindowsServiceIsNotInstalledCheck(),
-
-                        new StiPortAvailabilityCheck()
+                        //new StiPortAvailabilityCheck()
                     };
                     checks = (List<StiCheck>)obj;
                 }

@@ -64,7 +64,7 @@
                 </StackPanel>
             </Grid>
         </wpf:CloudGroupBox>
-        <wpf:CloudGroupBox Grid.Row="2" Header="Hilos de Ejecución" Margin="0,0,0,4">
+        <!--<wpf:CloudGroupBox Grid.Row="2" Header="Hilos de Ejecución" Margin="0,0,0,4">
             <Grid Margin="4, 12, 4, 4">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition />
@@ -89,6 +89,17 @@
                     <wpf:StiComboBoxItem Content="15" />
                     <wpf:StiComboBoxItem Content="16" />
                 </wpf:StiComboBox>
+            </Grid>
+        </wpf:CloudGroupBox>-->
+        <wpf:CloudGroupBox Grid.Row="2" Header="Servidor Api" Margin="0,0,0,4">
+            <Grid Margin="4, 12, 4, 4">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition Width="40" />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <wpf:StiTextBox Name="txtServerPort" HorizontalAlignment="Center" 
+                                Width="150" Margin="4" VerticalAlignment="Center" VerticalContentAlignment="Stretch" Text="8080"/>
             </Grid>
         </wpf:CloudGroupBox>
         <Grid Name="panelTreadRestart" Row="3" Margin="15, 0" Visibility="Collapsed">

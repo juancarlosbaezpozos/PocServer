@@ -36,7 +36,7 @@ public partial class StiServiceInstallationControl : UserControl, IComponentConn
             timerStatus.Start();
             ProcessAdministratorWarning();
             RefreshServiceStatus();
-            comboBoxThreadCount.SelectedIndex = 3;
+            //comboBoxThreadCount.SelectedIndex = 3;
             DoScaling();
             LockThreadCount = false;
         }
@@ -303,14 +303,14 @@ public partial class StiServiceInstallationControl : UserControl, IComponentConn
         }
     }
 
-    private void ComboBoxThreadCount_SelectionChanged(object sender, SelectionChangedEventArgs e)
-    {
-        if (!LockThreadCount)
-        {
-            if (IsWorking)
-            {
-                panelTreadRestart.Visibility = Visibility.Visible;
-            }
-        }
-    }
+    //private void ComboBoxThreadCount_SelectionChanged(object sender, SelectionChangedEventArgs e)
+    //{
+    //    if (!LockThreadCount)
+    //    {
+    //        if (IsWorking)
+    //        {
+    //            panelTreadRestart.Visibility = Visibility.Visible;
+    //        }
+    //    }
+    //}
 }

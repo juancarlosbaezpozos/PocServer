@@ -34,18 +34,25 @@ namespace Principal.Server
 
         private void LoadConfig()
         {
+            if (_configuration != null)
+            {
+                return;
+            }
+
+            var assemblyPath = Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
+            if (assemblyPath == null) return;
+
             var builder = new ConfigurationBuilder()
-                .SetBasePath(Directory.GetCurrentDirectory())
+                .SetBasePath(assemblyPath)
                 .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true);
 
-            if (_configuration == null)
-                _configuration = builder.Build();
+            _configuration = builder.Build();
         }
 
         public virtual void Start(bool runProcessors = true)
         {
             LoadConfig();
-            CreateProcessor(1, (int? index) => new EjemploProcessor(this, index));
+            CreateProcessor(1, index => new EjemploProcessor(this, index));
             CreateProcessor(1, index => new OwinServerProcessor(this, index, _configuration));
 
             if (runProcessors)

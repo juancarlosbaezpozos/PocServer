@@ -14,21 +14,21 @@ namespace Principal.Server.Processors
 
         public override string Name => "OwinServerProcessor";
 
-        protected override TimeSpan SuspendTime => TimeSpan.FromSeconds(1);
+        protected override TimeSpan SuspendTime => TimeSpan.FromSeconds(10);
 
         public OwinServerProcessor(IStiCore core, int? processorIndex, IConfiguration configuration) : base(core, processorIndex)
         {
             _configuration = configuration;
-            _baseUrl = _configuration["OwinServer:Url"];
+            _baseUrl = _configuration["OwinServer:Url"] ?? "http://localhost:8080";
         }
 
         protected override void Process()
         {
-            if (_server == null)
+            if (_server == null && !string.IsNullOrWhiteSpace(_baseUrl))
             {
                 _server = WebApp.Start<OwinServerStartup>(_baseUrl);
-                Console.WriteLine("\nCargando tipo: " + typeof(OwinHttpListener) + "...");
-                Console.WriteLine($"\n{Name} iniciando en {_baseUrl}");
+                System.Diagnostics.Debug.WriteLine("\nCargando tipo: " + typeof(OwinHttpListener) + "...");
+                System.Diagnostics.Debug.WriteLine($"\n{Name} iniciando en {_baseUrl}");
             }
         }
 
@@ -39,7 +39,8 @@ namespace Principal.Server.Processors
             {
                 _server.Dispose();
                 _server = null;
-                Console.WriteLine($"\n{Name} detenido.");
+
+                System.Diagnostics.Debug.WriteLine($"\n{Name} detenido.");
             }
         }
     }

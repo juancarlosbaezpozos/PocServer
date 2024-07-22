@@ -1,4 +1,5 @@
 using System;
+using System.Diagnostics;
 using System.Reflection;
 using System.ServiceProcess;
 using System.Threading;
@@ -17,17 +18,24 @@ public sealed class StiServerAgent : ServiceBase
 
     protected override void OnStart(string[] args)
     {
-        base.OnStart(args);
+        //#if DEBUG
+        //        base.RequestAdditionalTime(600 * 1000);   //10 minutos
+        //        Debugger.Launch();
+        //#endif
+
         Core = new StiCore();
         Core.Start();
+
+        base.OnStart(args);
     }
 
     protected override void OnStop()
     {
-        base.OnStop();
         Core.Stop();
         Core = null;
-        base.ExitCode = 0;
+        ExitCode = 0;
+
+        base.OnStop();
     }
 
     protected override void OnPause()
@@ -53,51 +61,49 @@ public sealed class StiServerAgent : ServiceBase
         }
         else
         {
-            ServiceBase.Run(servicesToRun);
+            Run(servicesToRun);
         }
     }
 
     public StiServerAgent()
     {
-        base.ServiceName = ServerAgentName;
+        ServiceName = ServerAgentName;
         EventLog.Log = "Application";
-        base.CanHandlePowerEvent = true;
-        base.CanHandleSessionChangeEvent = true;
-        base.CanPauseAndContinue = true;
-        base.CanShutdown = true;
-        base.CanStop = true;
+        CanHandlePowerEvent = true;
+        CanHandleSessionChangeEvent = true;
+        CanPauseAndContinue = true;
+        CanShutdown = true;
+        CanStop = true;
     }
 
     private static void RunInteractive(ServiceBase[] servicesToRun)
     {
-        Console.WriteLine("Servicios corriendo en modo interactivo.");
+        Debug.WriteLine("Servicios corriendo en modo interactivo.");
 
         var onStartMethod = typeof(ServiceBase).GetMethod("OnStart",
             BindingFlags.Instance | BindingFlags.NonPublic);
 
         foreach (var service in servicesToRun)
         {
-            Console.Write("\nIniciando {0}...", service.ServiceName);
+            Debug.WriteLine("\nIniciando {0}...", service.ServiceName);
             onStartMethod?.Invoke(service, new object[] { new string[] { } });
-            Console.Write("\nIniciado");
+            Debug.WriteLine("\nIniciado");
         }
 
-        Console.WriteLine();
-        Console.WriteLine(
+        Debug.WriteLine(
             "\nPresione cualquier tecla para detener el servicio y terminar el proceso...");
         Console.ReadKey();
-        Console.WriteLine();
 
         var onStopMethod = typeof(ServiceBase).GetMethod("OnStop",
             BindingFlags.Instance | BindingFlags.NonPublic);
         foreach (var service in servicesToRun)
         {
-            Console.Write("\nDeteniendo {0}...", service.ServiceName);
+            Debug.WriteLine("\nDeteniendo {0}...", service.ServiceName);
             onStopMethod?.Invoke(service, null);
-            Console.WriteLine("\nDetenido");
+            Debug.WriteLine("\nDetenido");
         }
 
-        Console.WriteLine("\nTodos los servicios detenidos.");
+        Debug.WriteLine("\nTodos los servicios detenidos.");
         Thread.Sleep(1000);
     }
 }
