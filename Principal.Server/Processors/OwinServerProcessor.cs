@@ -13,7 +13,7 @@ namespace Principal.Server.Processors
 
         public override string Name => "OwinServerProcessor";
 
-        protected override TimeSpan SuspendTime => TimeSpan.FromDays(1);
+        protected override TimeSpan SuspendTime => TimeSpan.FromSeconds(10);
 
         public OwinServerProcessor(IStiCore core, int? processorIndex, IConfiguration configuration) : base(core, processorIndex)
         {

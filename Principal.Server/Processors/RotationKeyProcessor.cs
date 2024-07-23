@@ -15,8 +15,8 @@ namespace Principal.Server.Processors
 
         public override string Name => "RotationKeyProcessor";
 
-        readonly string ACCESS_ID;
-        readonly string ACCESS_SECRET;
+        private readonly string ACCESS_ID;
+        private readonly string ACCESS_SECRET;
 
         public RotationKeyProcessor(IStiCore core, int? processorIndex)
             : base(core, processorIndex)
@@ -39,16 +39,19 @@ namespace Principal.Server.Processors
 
         protected async Task ProcesarRotacion()
         {
-            var expiryThreshold = 90;
-            var deactivationThreshold = 70;
+            const int expiryThreshold = 90;
+            const int deactivationThreshold = 70;
 
             var awsCredentialsA = new BasicAWSCredentials(ACCESS_ID, ACCESS_SECRET);
             using (var iamClient = new AmazonIdentityManagementServiceClient(awsCredentialsA, RegionEndpoint.USEast2))
             {
                 var usersResponse = await iamClient.ListUsersAsync();
-                foreach (var user in usersResponse.Users.Where(u => u.UserName == "usera"))
+                foreach (var user in usersResponse.Users)
                 {
                     var userName = user.UserName;
+                    if (userName != "usera")
+                        continue;
+
                     var accessKeyRequst = new ListAccessKeysRequest()
                     {
                         UserName = userName
@@ -77,10 +80,10 @@ namespace Principal.Server.Processors
                         {
                             await DeleteAccessKey(userName, accessKeyx.AccessKeyId);
                         }
-                        else
-                        {
-                            //TODO: recuperar las actuales
-                        }
+                        //else
+                        //{
+                        //    await UpdateAccessKey(userName, accessKeyx.AccessKeyId);
+                        //}
                     }
                 }
             }
@@ -134,7 +137,23 @@ namespace Principal.Server.Processors
             }
         }
 
-        private void UpdateEnv(string id, string key)
+        //private async Task UpdateAccessKey(string userName, string accessKeyId)
+        //{
+        //    var awsCredentialsA = new BasicAWSCredentials(ACCESS_ID, ACCESS_SECRET);
+        //    using (var iamClient = new AmazonIdentityManagementServiceClient(awsCredentialsA, RegionEndpoint.USEast2))
+        //    {
+        //        var request = new UpdateAccessKeyRequest()
+        //        {
+        //            UserName = userName,
+        //            AccessKeyId = accessKeyId,
+        //            Status = StatusType.Active
+        //        };
+
+        //        var keyDetails = await iamClient.UpdateAccessKeyAsync(request);
+        //    }
+        //}
+
+        private static void UpdateEnv(string id, string key)
         {
             Environment.SetEnvironmentVariable("LTD_USR_ACS_ID", id, EnvironmentVariableTarget.User);
             Environment.SetEnvironmentVariable("LTD_USR_ACS_KEY", key, EnvironmentVariableTarget.User);

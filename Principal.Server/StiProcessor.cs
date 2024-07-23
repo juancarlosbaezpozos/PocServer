@@ -194,8 +194,6 @@ namespace Principal.Server
             {
                 while (true)
                 {
-                    Process();
-
                     PauseHandle.WaitOne();
                     ThreadSleep();
                     if (StopRequired)
@@ -203,7 +201,7 @@ namespace Principal.Server
                         break;
                     }
 
-                    //Process();
+                    Process();
                 }
                 StopRequired = false;
                 ProcessorStatus = StiProcessorStatus.Stopped;
