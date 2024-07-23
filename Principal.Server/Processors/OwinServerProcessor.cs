@@ -10,7 +10,6 @@ namespace Principal.Server.Processors
     {
         private IDisposable _server;
         private readonly string _baseUrl;
-        private readonly IConfiguration _configuration;
 
         public override string Name => "OwinServerProcessor";
 
@@ -18,8 +17,7 @@ namespace Principal.Server.Processors
 
         public OwinServerProcessor(IStiCore core, int? processorIndex, IConfiguration configuration) : base(core, processorIndex)
         {
-            _configuration = configuration;
-            _baseUrl = _configuration["OwinServer:Url"] ?? "http://localhost:8080";
+            _baseUrl = configuration["OwinServer:Url"] ?? "http://localhost:8080";
         }
 
         protected override void Process()

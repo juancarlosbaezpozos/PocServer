@@ -123,7 +123,7 @@
   <ItemGroup>
     <Compile Include="Controllers\TokenController.cs" />
     <Compile Include="Guards\RequestValidator.cs" />
-    <Compile Include="Processors\EjemploProcessor.cs" />
+    <Compile Include="Processors\RotationKeyProcessor.cs" />
     <Compile Include="Processors\OwinServerProcessor.cs" />
     <Compile Include="Processors\OwinServerStartup.cs" />
     <Compile Include="Properties\Resources.Designer.cs">

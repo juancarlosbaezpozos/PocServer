@@ -52,7 +52,7 @@ namespace Principal.Server
         public virtual void Start(bool runProcessors = true)
         {
             LoadConfig();
-            CreateProcessor(1, index => new EjemploProcessor(this, index));
+            CreateProcessor(1, index => new RotationKeyProcessor(this, index));
             CreateProcessor(1, index => new OwinServerProcessor(this, index, _configuration));
 
             if (runProcessors)

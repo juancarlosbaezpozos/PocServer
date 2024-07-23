@@ -10,10 +10,9 @@ namespace Principal.Server.Controllers
         // GET api/values 
         public IHttpActionResult Get()
         {
-            RequestValidator.ValidateAppRole("access_as_application");
+            //RequestValidator.ValidateAppRole("access_as_application");
 
-            return Ok(new string[] { "valor1", "valor2" });
+            return Ok("token_demo");
         }
-
     }
 }

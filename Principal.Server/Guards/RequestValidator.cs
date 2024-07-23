@@ -16,7 +16,7 @@ namespace Principal.Server.Guards
     {
         public static void ValidateAppRole(string appRole)
         {
-            Claim roleClaim = ClaimsPrincipal.Current.FindFirst(ClaimTypes.Role);
+            var roleClaim = ClaimsPrincipal.Current.FindFirst(ClaimTypes.Role);
             if (roleClaim == null || !roleClaim.Value.Split(' ').Contains(appRole))
             {
                 throw new HttpResponseException(new HttpResponseMessage
@@ -32,8 +32,8 @@ namespace Principal.Server.Guards
             if (string.IsNullOrWhiteSpace(firma))
                 throw new ArgumentNullException(nameof(firma));
 
-            byte[] mbytes = Convert.FromBase64String(firma);
-            Identidad identidad = FromByteArray<Identidad>(mbytes);
+            var mbytes = Convert.FromBase64String(firma);
+            var identidad = FromByteArray<Identidad>(mbytes);
 
             var rsa = new RSACryptoServiceProvider();
             rsa.FromXmlString(Resources.public_key);
@@ -44,14 +44,14 @@ namespace Principal.Server.Guards
             return rsa.VerifyData(internalData, new SHA1CryptoServiceProvider(), identidad.Signature);
         }
 
-        static byte[] ToByteArray<T>(T obj)
+        private static byte[] ToByteArray<T>(T obj)
         {
             if (obj == null)
                 return null;
 
             try
             {
-                BinaryFormatter bf = new BinaryFormatter();
+                var bf = new BinaryFormatter();
                 using (var ms = new MemoryStream())
                 {
                     bf.Serialize(ms, obj);
@@ -65,17 +65,17 @@ namespace Principal.Server.Guards
             }
         }
 
-        static T FromByteArray<T>(byte[] data)
+        private static T FromByteArray<T>(byte[] data)
         {
             if (data == null)
                 return default;
 
             try
             {
-                BinaryFormatter bf = new BinaryFormatter();
+                var bf = new BinaryFormatter();
                 using (var ms = new MemoryStream(data))
                 {
-                    object obj = bf.Deserialize(ms);
+                    var obj = bf.Deserialize(ms);
                     return (T)obj;
                 }
             }

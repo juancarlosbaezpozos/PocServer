@@ -3,13 +3,13 @@ using Principal.Server.Objects;
 
 namespace Principal.Server.Processors
 {
-    public class EjemploProcessor : StiProcessor
+    public class RotationKeyProcessor : StiProcessor
     {
-        protected override TimeSpan SuspendTime { get; } = TimeSpan.FromSeconds(10.0);  //tal vez dias
+        protected override TimeSpan SuspendTime { get; } = TimeSpan.FromDays(1);
 
-        public override string Name => "Ejemplo-Processor";
+        public override string Name => "RotationKeyProcessor";
 
-        public EjemploProcessor(IStiCore core, int? processorIndex)
+        public RotationKeyProcessor(IStiCore core, int? processorIndex)
             : base(core, processorIndex)
         {
         }
@@ -20,7 +20,7 @@ namespace Principal.Server.Processors
             {
                 ProcesarRotacion();
             }
-            catch (Exception exception)
+            catch
             {
             }
         }

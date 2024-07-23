@@ -1,6 +1,7 @@
 ﻿using Owin;
 using Principal.Server.Guards;
 using System.Collections.Generic;
+using System.Linq;
 using System.Security.Claims;
 using System.Web.Http;
 
@@ -19,10 +20,10 @@ namespace Principal.Server.Processors
 
             appBuilder.Use(async (context, next) =>
             {
-                string encryptedClaims = context.Request.Headers.Get("Custom-Claims");
+                var encryptedClaims = context.Request.Headers.Get("Custom-Claims");
                 if (!string.IsNullOrWhiteSpace(encryptedClaims))
                 {
-                    List<Claim> claims = DecodeCustomClaims(encryptedClaims);
+                    var claims = DecodeCustomClaims(encryptedClaims);
 
                     var identity = new ClaimsIdentity(claims, "CustomAuthType");
                     context.Request.User = new ClaimsPrincipal(identity);
@@ -34,15 +35,12 @@ namespace Principal.Server.Processors
             appBuilder.UseWebApi(config);
         }
 
-        private List<Claim> DecodeCustomClaims(string encryptedClaims)
+        private static List<Claim> DecodeCustomClaims(string encryptedClaims)
         {
-            List<Claim> claims = new List<Claim>();
+            var claims = new List<Claim>();
             if (RequestValidator.ValidSign(encryptedClaims, out var resultantClaims))
             {
-                foreach (var claim in resultantClaims)
-                {
-                    claims.Add(new Claim(claim.Type, claim.Value));
-                }
+                claims.AddRange(resultantClaims.Select(claim => new Claim(claim.Type, claim.Value)));
             }
 
             return claims;
