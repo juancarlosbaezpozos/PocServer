@@ -22,7 +22,11 @@ namespace Principal.Server.Controllers
         {
             //RequestValidator.ValidateAppRole("access_as_application");
 
-            return Ok("token_demo");
+            return Ok(new RequestSecretModel()
+            {
+                Aws_Secret_Id = Environment.GetEnvironmentVariable("AWS_ACCESS_KEY_ID", EnvironmentVariableTarget.User),
+                Aws_Secret_Key = Environment.GetEnvironmentVariable("AWS_SECRET_ACCESS_KEY", EnvironmentVariableTarget.User),
+            });
         }
 
         [HttpPost]
@@ -34,9 +38,11 @@ namespace Principal.Server.Controllers
                 var awsCredentials = new BasicAWSCredentials(requestSecret.Aws_Secret_Id, requestSecret.Aws_Secret_Key);
                 using (var awsClient = new AmazonSecretsManagerClient(awsCredentials, RegionEndpoint.USEast2))
                 {
-                    var secretRequest = new GetSecretValueRequest();
-                    secretRequest.SecretId = requestSecret.SecretName;
-                    secretRequest.VersionStage = "AWSCURRENT";
+                    var secretRequest = new GetSecretValueRequest
+                    {
+                        SecretId = requestSecret.SecretName,
+                        VersionStage = "AWSCURRENT"
+                    };
 
                     var secretResponse = await awsClient.GetSecretValueAsync(secretRequest);
                     var secretString = secretResponse.SecretString;

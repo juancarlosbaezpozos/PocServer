@@ -5,6 +5,7 @@ using Amazon.Runtime;
 using Principal.Server.Objects;
 using System;
 using System.Threading.Tasks;
+using System.Linq;
 
 namespace Principal.Server.Processors
 {
@@ -20,6 +21,7 @@ namespace Principal.Server.Processors
         public RotationKeyProcessor(IStiCore core, int? processorIndex)
             : base(core, processorIndex)
         {
+            //Llaves maestras
             ACCESS_ID = Environment.GetEnvironmentVariable("AWS_ACCESS_KEY_ID", EnvironmentVariableTarget.User);
             ACCESS_SECRET = Environment.GetEnvironmentVariable("AWS_SECRET_ACCESS_KEY", EnvironmentVariableTarget.User);
         }
@@ -44,7 +46,7 @@ namespace Principal.Server.Processors
             using (var iamClient = new AmazonIdentityManagementServiceClient(awsCredentialsA, RegionEndpoint.USEast2))
             {
                 var usersResponse = await iamClient.ListUsersAsync();
-                foreach (var user in usersResponse.Users)
+                foreach (var user in usersResponse.Users.Where(u => u.UserName == "usera"))
                 {
                     var userName = user.UserName;
                     var accessKeyRequst = new ListAccessKeysRequest()
@@ -61,19 +63,23 @@ namespace Principal.Server.Processors
                         if (keyAgeInDays >= deactivationThreshold - 10
                         && keyAgeInDays < deactivationThreshold
                         && accessKeyDetails.AccessKeyMetadata.Count == 1
-                        && accessKeyx.Status == Amazon.IdentityManagement.StatusType.Active)
+                        && accessKeyx.Status == StatusType.Active)
                         {
-                            await CreateAccessKey(user.UserName);
+                            await CreateAccessKey(userName);
                         }
                         else if (keyAgeInDays >= expiryThreshold - 10
                         && keyAgeInDays < expiryThreshold
-                        && accessKeyx.Status == Amazon.IdentityManagement.StatusType.Active)
+                        && accessKeyx.Status == StatusType.Active)
                         {
-                            await DeactivateAccessKey(user.UserName, accessKeyx.AccessKeyId);
+                            await DeactivateAccessKey(userName, accessKeyx.AccessKeyId);
                         }
-                        else if (keyAgeInDays >= expiryThreshold && accessKeyx.Status == Amazon.IdentityManagement.StatusType.Inactive)
+                        else if (keyAgeInDays >= expiryThreshold && accessKeyx.Status == StatusType.Inactive)
                         {
-                            await DeleteAccessKey(user.UserName, accessKeyx.AccessKeyId);
+                            await DeleteAccessKey(userName, accessKeyx.AccessKeyId);
+                        }
+                        else
+                        {
+                            //TODO: recuperar las actuales
                         }
                     }
                 }
@@ -91,10 +97,7 @@ namespace Principal.Server.Processors
                 };
 
                 var keyDetails = await iamClient.CreateAccessKeyAsync(request);
-                var message = $"New Access Key Generated for user : {userName}. " +
-                $"New Access Key Id : {keyDetails.AccessKey.AccessKeyId}. " +
-                $"New Secret Access Key : {keyDetails.AccessKey.SecretAccessKey}." +
-                $"Old Key will be Deactivated in about 10 days.";
+                UpdateEnv(keyDetails.AccessKey.AccessKeyId, keyDetails.AccessKey.SecretAccessKey);
             }
         }
 
@@ -110,7 +113,7 @@ namespace Principal.Server.Processors
                 };
 
                 await iamClient.DeleteAccessKeyAsync(request);
-                var message = $"Access Key : {accessKeyId} has been deleted for user : {userName}.";
+                UpdateEnv("", "");
             }
         }
 
@@ -127,8 +130,14 @@ namespace Principal.Server.Processors
                 };
 
                 await iamClient.UpdateAccessKeyAsync(request);
-                var message = $"Access Key : {accessKeyId} has been deactivated for user : {userName}.";
+                UpdateEnv("", "");
             }
+        }
+
+        private void UpdateEnv(string id, string key)
+        {
+            Environment.SetEnvironmentVariable("LTD_USR_ACS_ID", id, EnvironmentVariableTarget.User);
+            Environment.SetEnvironmentVariable("LTD_USR_ACS_KEY", key, EnvironmentVariableTarget.User);
         }
 
     }
