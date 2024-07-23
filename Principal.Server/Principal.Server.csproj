@@ -122,9 +122,15 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controllers\TokenController.cs" />
+    <Compile Include="Guards\RequestValidator.cs" />
     <Compile Include="Processors\EjemploProcessor.cs" />
     <Compile Include="Processors\OwinServerProcessor.cs" />
     <Compile Include="Processors\OwinServerStartup.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
     <Compile Include="StiCore.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="StiProcessor.cs" />
@@ -141,7 +147,14 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <None Include="packages.config" />
+    <None Include="http-client.env.json" />
+    <None Include="Pruebas.http" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
