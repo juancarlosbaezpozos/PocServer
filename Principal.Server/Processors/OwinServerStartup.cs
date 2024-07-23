@@ -1,4 +1,6 @@
-﻿using Owin;
+﻿#define SEGURIDAD
+
+using Owin;
 using Principal.Server.Guards;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,7 +19,7 @@ namespace Principal.Server.Processors
                 routeTemplate: "api/{controller}/{id}",
                 defaults: new { id = RouteParameter.Optional }
             );
-
+#if SEGURIDAD
             appBuilder.Use(async (context, next) =>
             {
                 var encryptedClaims = context.Request.Headers.Get("Custom-Claims");
@@ -31,10 +33,11 @@ namespace Principal.Server.Processors
 
                 await next.Invoke();
             });
-
+#endif
             appBuilder.UseWebApi(config);
         }
 
+#if SEGURIDAD
         private static List<Claim> DecodeCustomClaims(string encryptedClaims)
         {
             var claims = new List<Claim>();
@@ -45,5 +48,6 @@ namespace Principal.Server.Processors
 
             return claims;
         }
+#endif
     }
 }
