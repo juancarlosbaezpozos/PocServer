@@ -1,9 +1,9 @@
-﻿using Principal.Server.Objects;
+﻿#if SEGURIDAD
+using Principal.Server.Objects;
 using Principal.Server.Properties;
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Net.Http;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Security.Claims;
@@ -12,19 +12,22 @@ using System.Web.Http;
 
 namespace Principal.Server.Guards
 {
+
     internal static class RequestValidator
     {
-        public static void ValidateAppRole(string appRole)
+        public static string ValidateClaimsPrincipal()
         {
-            var roleClaim = ClaimsPrincipal.Current.FindFirst(ClaimTypes.Role);
-            if (roleClaim == null || !roleClaim.Value.Split(' ').Contains(appRole))
+            var nameClaim = ClaimsPrincipal.Current.FindFirst(ClaimTypes.Name);
+            if (nameClaim == null)
             {
                 throw new HttpResponseException(new HttpResponseMessage
                 {
                     StatusCode = System.Net.HttpStatusCode.Unauthorized,
-                    ReasonPhrase = $"Los 'roles' reclamados no contienen '{appRole}' o no se encontraron."
+                    ReasonPhrase = "No se encontró el nombre del servicio."
                 });
             }
+
+            return nameClaim.Value;
         }
 
         public static bool ValidSign(string firma, out List<Reclamacion> reclamaciones)
@@ -86,3 +89,4 @@ namespace Principal.Server.Guards
         }
     }
 }
+#endif

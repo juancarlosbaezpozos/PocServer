@@ -91,7 +91,7 @@
                 </wpf:StiComboBox>
             </Grid>
         </wpf:CloudGroupBox>-->
-        <wpf:CloudGroupBox Grid.Row="2" Header="Servidor Api" Margin="0,0,0,4">
+        <!--<wpf:CloudGroupBox Grid.Row="2" Header="Servidor Api" Margin="0,0,0,4">
             <Grid Margin="4, 12, 4, 4">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition />
@@ -101,7 +101,7 @@
                 <wpf:StiTextBox Name="txtServerPort" HorizontalAlignment="Center" 
                                 Width="150" Margin="4" VerticalAlignment="Center" VerticalContentAlignment="Stretch" Text="8080"/>
             </Grid>
-        </wpf:CloudGroupBox>
+        </wpf:CloudGroupBox>-->
         <Grid Name="panelTreadRestart" Row="3" Margin="15, 0" Visibility="Collapsed">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="52" />

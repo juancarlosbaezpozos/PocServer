@@ -1,10 +1,10 @@
-﻿#define SEGURIDAD
-
-using Owin;
+﻿using Owin;
+#if SEGURIDAD
 using Principal.Server.Guards;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
+#endif
 using System.Web.Http;
 
 namespace Principal.Server.Processors

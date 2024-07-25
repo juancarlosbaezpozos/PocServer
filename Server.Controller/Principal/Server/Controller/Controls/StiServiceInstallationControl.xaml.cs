@@ -132,8 +132,6 @@ public partial class StiServiceInstallationControl : UserControl, IComponentConn
 
     internal async Task InvokeRestartServiceAsync()
     {
-        _ = 1;
-
         try
         {
             IsWorking = true;
@@ -156,8 +154,6 @@ public partial class StiServiceInstallationControl : UserControl, IComponentConn
 
     private async Task StopServiceAsync()
     {
-        _ = 1;
-
         try
         {
             IsWorking = true;
@@ -180,8 +176,6 @@ public partial class StiServiceInstallationControl : UserControl, IComponentConn
 
     private async Task StartServiceAsync()
     {
-        _ = 1;
-
         try
         {
             IsWorking = true;
@@ -204,8 +198,6 @@ public partial class StiServiceInstallationControl : UserControl, IComponentConn
 
     private async Task UninstallServiceAsync()
     {
-        _ = 2;
-
         try
         {
             IsWorking = true;
@@ -231,8 +223,6 @@ public partial class StiServiceInstallationControl : UserControl, IComponentConn
 
     private async Task InstallServiceAsync()
     {
-        _ = 1;
-
         try
         {
             IsWorking = true;

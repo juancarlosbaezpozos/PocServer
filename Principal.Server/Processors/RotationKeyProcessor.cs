@@ -5,7 +5,7 @@ using Amazon.Runtime;
 using Principal.Server.Objects;
 using System;
 using System.Threading.Tasks;
-using System.Linq;
+using Microsoft.Extensions.Configuration;
 
 namespace Principal.Server.Processors
 {
@@ -17,13 +17,14 @@ namespace Principal.Server.Processors
 
         private readonly string ACCESS_ID;
         private readonly string ACCESS_SECRET;
+        private readonly string USER_MONITOR;
 
-        public RotationKeyProcessor(IStiCore core, int? processorIndex)
+        public RotationKeyProcessor(IStiCore core, int? processorIndex, IConfiguration configuration)
             : base(core, processorIndex)
         {
-            //Llaves maestras
             ACCESS_ID = Environment.GetEnvironmentVariable("AWS_ACCESS_KEY_ID", EnvironmentVariableTarget.User);
             ACCESS_SECRET = Environment.GetEnvironmentVariable("AWS_SECRET_ACCESS_KEY", EnvironmentVariableTarget.User);
+            USER_MONITOR = configuration["Aws:UserMonitor"] ?? string.Empty;
         }
 
         protected override void Process()
@@ -49,7 +50,7 @@ namespace Principal.Server.Processors
                 foreach (var user in usersResponse.Users)
                 {
                     var userName = user.UserName;
-                    if (userName != "usera")
+                    if (userName != USER_MONITOR)
                         continue;
 
                     var accessKeyRequst = new ListAccessKeysRequest()
@@ -58,6 +59,11 @@ namespace Principal.Server.Processors
                     };
 
                     var accessKeyDetails = await iamClient.ListAccessKeysAsync(accessKeyRequst);
+                    if (accessKeyDetails.AccessKeyMetadata.Count == 0)
+                    {
+                        await CreateAccessKey(userName);
+                    }
+
                     foreach (var accessKeyx in accessKeyDetails.AccessKeyMetadata)
                     {
                         var createdDate = accessKeyx.CreateDate;
@@ -80,10 +86,6 @@ namespace Principal.Server.Processors
                         {
                             await DeleteAccessKey(userName, accessKeyx.AccessKeyId);
                         }
-                        //else
-                        //{
-                        //    await UpdateAccessKey(userName, accessKeyx.AccessKeyId);
-                        //}
                     }
                 }
             }
@@ -137,27 +139,10 @@ namespace Principal.Server.Processors
             }
         }
 
-        //private async Task UpdateAccessKey(string userName, string accessKeyId)
-        //{
-        //    var awsCredentialsA = new BasicAWSCredentials(ACCESS_ID, ACCESS_SECRET);
-        //    using (var iamClient = new AmazonIdentityManagementServiceClient(awsCredentialsA, RegionEndpoint.USEast2))
-        //    {
-        //        var request = new UpdateAccessKeyRequest()
-        //        {
-        //            UserName = userName,
-        //            AccessKeyId = accessKeyId,
-        //            Status = StatusType.Active
-        //        };
-
-        //        var keyDetails = await iamClient.UpdateAccessKeyAsync(request);
-        //    }
-        //}
-
         private static void UpdateEnv(string id, string key)
         {
             Environment.SetEnvironmentVariable("LTD_USR_ACS_ID", id, EnvironmentVariableTarget.User);
             Environment.SetEnvironmentVariable("LTD_USR_ACS_KEY", key, EnvironmentVariableTarget.User);
         }
-
     }
 }

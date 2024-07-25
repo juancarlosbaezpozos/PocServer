@@ -17,21 +17,7 @@ namespace Principal.Server
 
         private string workDescription;
 
-        private bool isWorkProcessingValue;
-
-        private StiProcessorStatus processorStatus = StiProcessorStatus.NotInitialized;
-
-        private bool IsWorkProcessing
-        {
-            get => isWorkProcessingValue;
-            set
-            {
-                if (value != isWorkProcessingValue)
-                {
-                    isWorkProcessingValue = value;
-                }
-            }
-        }
+        private bool IsWorkProcessing { get; set; }
 
         protected internal bool StopRequired { get; set; }
 
@@ -41,33 +27,13 @@ namespace Principal.Server
 
         public IStiCore Core { get; set; }
 
-        public StiProcessorStatus ProcessorStatus
-        {
-            get => processorStatus;
-            set
-            {
-                if (value != processorStatus)
-                {
-                    processorStatus = value;
-                }
-            }
-        }
+        public StiProcessorStatus ProcessorStatus { get; set; } = StiProcessorStatus.NotInitialized;
 
         protected abstract TimeSpan SuspendTime { get; }
 
         public abstract string Name { get; }
 
-        public string ProcessorName
-        {
-            get
-            {
-                if (Index.HasValue)
-                {
-                    return $"{Name}-{Index}";
-                }
-                return Name;
-            }
-        }
+        public string ProcessorName => Index.HasValue ? $"{Name}-{Index}" : Name;
 
         protected void BeginTask(string task, params object[] args)
         {
@@ -83,11 +49,7 @@ namespace Principal.Server
 
         public string GetTask()
         {
-            if (!IsWorkProcessing)
-            {
-                return null;
-            }
-            return workDescription;
+            return !IsWorkProcessing ? null : workDescription;
         }
 
         public async Task StartAsync()
@@ -100,8 +62,10 @@ namespace Principal.Server
             if (ProcessorStatus != StiProcessorStatus.Started)
             {
                 PauseHandle.Set();
-                thread = new Thread(ThreadMethod);
-                thread.Name = ProcessorName;
+                thread = new Thread(ThreadMethod)
+                {
+                    Name = ProcessorName
+                };
                 thread.Start();
                 ProcessorStatus = StiProcessorStatus.Started;
             }
@@ -195,13 +159,13 @@ namespace Principal.Server
                 while (true)
                 {
                     PauseHandle.WaitOne();
-                    ThreadSleep();
                     if (StopRequired)
                     {
                         break;
                     }
 
                     Process();
+                    ThreadSleep();
                 }
                 StopRequired = false;
                 ProcessorStatus = StiProcessorStatus.Stopped;
@@ -230,6 +194,5 @@ namespace Principal.Server
                 IsWorkProcessing = false;
             };
         }
-
     }
 }

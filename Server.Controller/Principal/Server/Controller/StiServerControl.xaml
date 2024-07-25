@@ -22,15 +22,15 @@
                 </HeaderedContentControl.Header>
                 <controls:StiServiceInstallationControl x:Name="serviceInstallation" />
             </wpf:CloudVerticalTabItem>
-            <wpf:CloudVerticalTabItem Name="pageStorage">
+            <!--<wpf:CloudVerticalTabItem Name="pageStorage">
                 <HeaderedContentControl.Header>
                     <StackPanel IsHitTestVisible="False" VerticalAlignment="Center">
                         <Image Name="imageTabStorage" Width="32" Height="32" SnapsToDevicePixels="True" Stretch="Fill" Margin="0,4" />
-                        <TextBlock Name="pageDatabaseLabel" Margin="2,0,2,2" TextAlignment="Center" Text="Almacén" />
+                        <TextBlock Name="pageDatabaseLabel" Margin="2,0,2,2" TextAlignment="Center" Text="Config" />
                     </StackPanel>
                 </HeaderedContentControl.Header>
                 <controls:StiStorageControl x:Name="storageControl" />
-            </wpf:CloudVerticalTabItem>
+            </wpf:CloudVerticalTabItem>-->
             <wpf:CloudVerticalTabItem Name="pageCheck" Selected="PageCheck_Selected">
                 <HeaderedContentControl.Header>
                     <StackPanel IsHitTestVisible="False" VerticalAlignment="Center">

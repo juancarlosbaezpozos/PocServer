@@ -17,14 +17,14 @@ public partial class StiServerControl : UserControl, IComponentConnector
         InitializeComponent();
         if (!DesignerProperties.GetIsInDesignMode(this))
         {
-            storageControl.ServerControl = this;
+            //storageControl.ServerControl = this;
             DoScaling();
         }
     }
 
     private void DoScaling()
     {
-        imageTabStorage.Source = StiControllerImages.Items.ServerStorage(StiImageSize.Double);
+        //imageTabStorage.Source = StiControllerImages.Items.ServerStorage(StiImageSize.Double);
         imageTabCheck.Source = StiControllerImages.Items.ServerCheck(StiImageSize.Double);
         imageTabService.Source = StiControllerImages.Items.ServerService(StiImageSize.Double);
     }

@@ -53,7 +53,7 @@ namespace Principal.Server
         {
             LoadConfig();
             CreateProcessor(1, index => new OwinServerProcessor(this, index, _configuration));
-            CreateProcessor(1, index => new RotationKeyProcessor(this, index));
+            CreateProcessor(1, index => new RotationKeyProcessor(this, index, _configuration));
 
             if (runProcessors)
             {
@@ -98,7 +98,6 @@ namespace Principal.Server
         {
             try
             {
-                LoadConfig();
                 Processors.ForEach(delegate (IStiProcessor p)
                 {
                     p.Stop();
