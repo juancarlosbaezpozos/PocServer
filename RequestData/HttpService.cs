@@ -16,16 +16,16 @@ namespace RequestData
                 HttpWebRequest request;
                 lock (lockDet)
                 {
-                    RequestSecretModel secret = new RequestSecretModel
+                    var secret = new RequestSecretModel
                     {
                         SecretName = secretName
                     };
                     var jsonData = secret.ToJson();
 
-                    request = (HttpWebRequest)WebRequest.Create(ConfigurationManager.AppSettings["internalUrl"].ToString());
+                    request = (HttpWebRequest)WebRequest.Create(ConfigurationManager.AppSettings["internalUrl"]);
                     request.Method = "POST";
                     request.ContentType = "application/json";
-                    request.Headers.Add("Custom-Claims", ConfigurationManager.AppSettings["internalClaims"].ToString());
+                    request.Headers.Add("Custom-Claims", ConfigurationManager.AppSettings["internalClaims"]);
 
                     using (var streamWriter = new StreamWriter(request.GetRequestStream()))
                     {
@@ -35,38 +35,31 @@ namespace RequestData
                     }
                 }
 
-                using (HttpWebResponse response = (HttpWebResponse)request.GetResponse())
+                using (var response = (HttpWebResponse)request.GetResponse())
                 {
-                    if (response.StatusCode == HttpStatusCode.OK)
-                    {
-                        using (Stream responseStream = response.GetResponseStream())
-                        {
-                            using (StreamReader reader = new StreamReader(responseStream))
-                            {
-                                return reader.ReadToEnd();
-                            }
-                        }
-                    }
-                    else
-                    {
+                    if (response.StatusCode != HttpStatusCode.OK)
                         throw new WebException($"HTTP status code - {response.StatusCode}");
+
+                    using (var responseStream = response.GetResponseStream())
+                    {
+                        using (var reader = new StreamReader(responseStream ?? throw new InvalidOperationException()))
+                        {
+                            return reader.ReadToEnd();
+                        }
                     }
                 }
             }
             catch (WebException webEx)
             {
-                if (webEx.Response != null)
+                if (webEx.Response == null) throw;
+                using (var errorResponse = (HttpWebResponse)webEx.Response)
                 {
-                    using (var errorResponse = (HttpWebResponse)webEx.Response)
+                    using (var reader = new StreamReader(errorResponse.GetResponseStream() ?? throw new InvalidOperationException()))
                     {
-                        using (var reader = new StreamReader(errorResponse.GetResponseStream()))
-                        {
-                            string errorText = reader.ReadToEnd();
-                            throw new Exception(errorText);
-                        }
+                        var errorText = reader.ReadToEnd();
+                        throw new Exception(errorText);
                     }
                 }
-                throw;
             }
             catch (Exception ex)
             {
