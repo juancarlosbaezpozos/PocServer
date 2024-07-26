@@ -35,6 +35,10 @@ namespace Principal.Server.Controllers
                     Environment.GetEnvironmentVariable("LTD_USR_ACS_ID", EnvironmentVariableTarget.User);
                 var Aws_Secret_Key =
                     Environment.GetEnvironmentVariable("LTD_USR_ACS_KEY", EnvironmentVariableTarget.User);
+                if (string.IsNullOrEmpty(Aws_Secret_Id) || string.IsNullOrEmpty(Aws_Secret_Key))
+                {
+                    return BadRequest("Falta la configuración de AWS para el UserMonitor");
+                }
 
                 var awsCredentials = new BasicAWSCredentials(Aws_Secret_Id, Aws_Secret_Key);
                 using (var awsClient = new AmazonSecretsManagerClient(awsCredentials, RegionEndpoint.USEast2))

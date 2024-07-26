@@ -2,10 +2,10 @@
 using Amazon.IdentityManagement;
 using Amazon.IdentityManagement.Model;
 using Amazon.Runtime;
+using Microsoft.Extensions.Configuration;
 using Principal.Server.Objects;
 using System;
 using System.Threading.Tasks;
-using Microsoft.Extensions.Configuration;
 
 namespace Principal.Server.Processors
 {
@@ -18,13 +18,19 @@ namespace Principal.Server.Processors
         private readonly string ACCESS_ID;
         private readonly string ACCESS_SECRET;
         private readonly string USER_MONITOR;
+        private readonly RegionEndpoint REGIONPOINT;
+        private readonly short ROTATIONDAYS;
+        private readonly short DEACTIVATIONDAYS;
 
         public RotationKeyProcessor(IStiCore core, int? processorIndex, IConfiguration configuration)
             : base(core, processorIndex)
         {
             ACCESS_ID = Environment.GetEnvironmentVariable("AWS_ACCESS_KEY_ID", EnvironmentVariableTarget.User);
             ACCESS_SECRET = Environment.GetEnvironmentVariable("AWS_SECRET_ACCESS_KEY", EnvironmentVariableTarget.User);
-            USER_MONITOR = configuration["Aws:UserMonitor"] ?? string.Empty;
+            USER_MONITOR = configuration["Aws:UserMonitor"];
+            REGIONPOINT = RegionEndpoint.GetBySystemName(configuration["Aws:RegionName"]) ?? RegionEndpoint.USEast2;
+            ROTATIONDAYS = Convert.ToInt16(configuration["Aws:RotationDays"]);
+            DEACTIVATIONDAYS = Convert.ToInt16(configuration["Aws:DeactivationDays"]);
         }
 
         protected override void Process()
@@ -40,11 +46,14 @@ namespace Principal.Server.Processors
 
         protected async Task ProcesarRotacion()
         {
-            const int expiryThreshold = 90;
-            const int deactivationThreshold = 70;
+            if (string.IsNullOrEmpty(ACCESS_ID)) return;
+            if (string.IsNullOrEmpty(ACCESS_SECRET)) return;
+            if (string.IsNullOrEmpty(USER_MONITOR)) return;
+            if (ROTATIONDAYS < 15) return;
+            if (DEACTIVATIONDAYS < 15) return;
 
             var awsCredentialsA = new BasicAWSCredentials(ACCESS_ID, ACCESS_SECRET);
-            using (var iamClient = new AmazonIdentityManagementServiceClient(awsCredentialsA, RegionEndpoint.USEast2))
+            using (var iamClient = new AmazonIdentityManagementServiceClient(awsCredentialsA, REGIONPOINT))
             {
                 var usersResponse = await iamClient.ListUsersAsync();
                 foreach (var user in usersResponse.Users)
@@ -69,20 +78,21 @@ namespace Principal.Server.Processors
                         var createdDate = accessKeyx.CreateDate;
                         var keyAge = DateTime.Now - createdDate;
                         var keyAgeInDays = keyAge.Days;
-                        if (keyAgeInDays >= deactivationThreshold - 10
-                        && keyAgeInDays < deactivationThreshold
+
+                        if (keyAgeInDays >= DEACTIVATIONDAYS - 10
+                        && keyAgeInDays < DEACTIVATIONDAYS
                         && accessKeyDetails.AccessKeyMetadata.Count == 1
                         && accessKeyx.Status == StatusType.Active)
                         {
                             await CreateAccessKey(userName);
                         }
-                        else if (keyAgeInDays >= expiryThreshold - 10
-                        && keyAgeInDays < expiryThreshold
+                        else if (keyAgeInDays >= ROTATIONDAYS - 10
+                        && keyAgeInDays < ROTATIONDAYS
                         && accessKeyx.Status == StatusType.Active)
                         {
                             await DeactivateAccessKey(userName, accessKeyx.AccessKeyId);
                         }
-                        else if (keyAgeInDays >= expiryThreshold && accessKeyx.Status == StatusType.Inactive)
+                        else if (keyAgeInDays >= ROTATIONDAYS && accessKeyx.Status == StatusType.Inactive)
                         {
                             await DeleteAccessKey(userName, accessKeyx.AccessKeyId);
                         }
@@ -94,7 +104,7 @@ namespace Principal.Server.Processors
         private async Task CreateAccessKey(string userName)
         {
             var awsCredentialsA = new BasicAWSCredentials(ACCESS_ID, ACCESS_SECRET);
-            using (var iamClient = new AmazonIdentityManagementServiceClient(awsCredentialsA, RegionEndpoint.USEast2))
+            using (var iamClient = new AmazonIdentityManagementServiceClient(awsCredentialsA, REGIONPOINT))
             {
                 var request = new CreateAccessKeyRequest()
                 {
@@ -109,7 +119,7 @@ namespace Principal.Server.Processors
         private async Task DeleteAccessKey(string userName, string accessKeyId)
         {
             var awsCredentialsA = new BasicAWSCredentials(ACCESS_ID, ACCESS_SECRET);
-            using (var iamClient = new AmazonIdentityManagementServiceClient(awsCredentialsA, RegionEndpoint.USEast2))
+            using (var iamClient = new AmazonIdentityManagementServiceClient(awsCredentialsA, REGIONPOINT))
             {
                 var request = new DeleteAccessKeyRequest()
                 {
@@ -125,7 +135,7 @@ namespace Principal.Server.Processors
         private async Task DeactivateAccessKey(string userName, string accessKeyId)
         {
             var awsCredentialsA = new BasicAWSCredentials(ACCESS_ID, ACCESS_SECRET);
-            using (var iamClient = new AmazonIdentityManagementServiceClient(awsCredentialsA, RegionEndpoint.USEast2))
+            using (var iamClient = new AmazonIdentityManagementServiceClient(awsCredentialsA, REGIONPOINT))
             {
                 var request = new UpdateAccessKeyRequest()
                 {
