@@ -1,12 +1,15 @@
-﻿using Amazon;
+using Amazon;
 using Amazon.Runtime;
 using Amazon.SecretsManager;
 using Amazon.SecretsManager.Model;
+using Newtonsoft.Json.Linq;
+
 #if SEGURIDAD
 using Principal.Server.Guards;
 #endif
 using Principal.Server.Objects;
 using System;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Web.Http;
 
@@ -52,7 +55,10 @@ namespace Principal.Server.Controllers
                     var secretResponse = await awsClient.GetSecretValueAsync(secretRequest);
                     var secretString = secretResponse.SecretString;
 
-                    return Ok(secretString);
+                    var secretJson = JObject.Parse(secretString);
+                    var secretValue = secretJson.Properties().First().Value.ToString();
+
+                    return Ok(secretValue);
                 }
             }
             catch (Exception ex)
