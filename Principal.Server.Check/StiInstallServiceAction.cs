@@ -1,4 +1,5 @@
 ﻿using Principal.Server.Agent;
+using System.Threading.Tasks;
 
 namespace Principal.Server.Check
 {
@@ -8,10 +9,17 @@ namespace Principal.Server.Check
 
         public override string Description => "Instalar Agente.";
 
-        public override void Invoke(object element, string elementName)
+        public override bool RemoveCheckAfterInvokeAction => true;
+
+        public override async void Invoke(object element, string elementName)
         {
             base.Invoke(element, elementName);
-            StiServerController.InstallServiceAsync().Wait();
+            await InstallServiceAsync();
+        }
+
+        private async Task InstallServiceAsync()
+        {
+            await StiServerController.InstallServiceAsync();
         }
     }
 }

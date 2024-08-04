@@ -5,7 +5,11 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:wpf="schemas-principal-com:wpf-controls-V2" 
-             xmlns:controls="clr-namespace:Principal.Server.Controller.Controls;assembly=Principal.Server.Controller">
+             xmlns:controls="clr-namespace:Principal.Server.Controller.Controls;assembly=Principal.Server.Controller"
+             xmlns:vms="clr-namespace:Principal.Server.Controller.ViewModels">
+    <UserControl.DataContext>
+        <vms:ServiceInstallationViewModel />
+    </UserControl.DataContext>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
@@ -64,44 +68,38 @@
                 </StackPanel>
             </Grid>
         </wpf:CloudGroupBox>
-        <!--<wpf:CloudGroupBox Grid.Row="2" Header="Hilos de Ejecución" Margin="0,0,0,4">
+        <wpf:CloudGroupBox Grid.Row="2" Header="Configuración Servidor" Margin="0,0,0,4">
             <Grid Margin="4, 12, 4, 4">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition />
                     <ColumnDefinition Width="40" />
                     <ColumnDefinition />
                 </Grid.ColumnDefinitions>
-                <wpf:StiComboBox Name="comboBoxThreadCount" HorizontalAlignment="Center" Width="150" Margin="4" SelectedIndex="0" VerticalAlignment="Center" VerticalContentAlignment="Stretch" SelectionChanged="ComboBoxThreadCount_SelectionChanged">
-                    <wpf:StiComboBoxItem Content="1" />
-                    <wpf:StiComboBoxItem Content="2" />
-                    <wpf:StiComboBoxItem Content="3" />
-                    <wpf:StiComboBoxItem Content="4" />
-                    <wpf:StiComboBoxItem Content="5" />
-                    <wpf:StiComboBoxItem Content="6" />
-                    <wpf:StiComboBoxItem Content="7" />
-                    <wpf:StiComboBoxItem Content="8" />
-                    <wpf:StiComboBoxItem Content="9" />
-                    <wpf:StiComboBoxItem Content="10" />
-                    <wpf:StiComboBoxItem Content="11" />
-                    <wpf:StiComboBoxItem Content="12" />
-                    <wpf:StiComboBoxItem Content="13" />
-                    <wpf:StiComboBoxItem Content="14" />
-                    <wpf:StiComboBoxItem Content="15" />
-                    <wpf:StiComboBoxItem Content="16" />
+
+                <TextBlock Grid.Row="0" Grid.Column="0" Margin="4" VerticalAlignment="Center" Text="Dias de Rotación:" />
+                <Slider Name="sldDias" Grid.Row="0" Grid.Column="2" Margin="4" Minimum="30" Maximum="60" TickFrequency="1" IsSnapToTickEnabled="True" ValueChanged="SldDias_OnValueChanged" 
+                        Value="{Binding RotationDays, ValidatesOnDataErrors=True,UpdateSourceTrigger=PropertyChanged}" />
+
+                <TextBlock Grid.Row="0" Grid.Column="1" Margin="4" VerticalAlignment="Center" Text="{Binding ElementName=sldDias, Path=Value}" />
+
+                <TextBlock Grid.Row="1" Grid.Column="0" Margin="4" VerticalAlignment="Center" Text="Región AWS:" />
+                <wpf:StiComboBox Name="cmbRegion" Grid.Row="1" Grid.Column="2" Margin="4" VerticalAlignment="Center" 
+                                 ItemsSource="{Binding Regions}" 
+                                 SelectionChanged="CmbRegion_OnSelectionChanged" 
+                                 SelectedItem="{Binding SelectedRegion, ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}">
                 </wpf:StiComboBox>
+
+                <TextBlock Grid.Row="2" Grid.Column="0" Margin="4" VerticalAlignment="Center" Text="Usuario asociado:" />
+                <wpf:StiTextBox Name="txtUserName" Grid.Row="2" Grid.Column="2" Margin="4" VerticalAlignment="Center" 
+                                Text="{Binding UserName,ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}"
+                                LostFocus="TxtUserName_OnLostFocus"/>
             </Grid>
-        </wpf:CloudGroupBox>-->
-        <!--<wpf:CloudGroupBox Grid.Row="2" Header="Servidor Api" Margin="0,0,0,4">
-            <Grid Margin="4, 12, 4, 4">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition />
-                    <ColumnDefinition Width="40" />
-                    <ColumnDefinition />
-                </Grid.ColumnDefinitions>
-                <wpf:StiTextBox Name="txtServerPort" HorizontalAlignment="Center" 
-                                Width="150" Margin="4" VerticalAlignment="Center" VerticalContentAlignment="Stretch" Text="8080"/>
-            </Grid>
-        </wpf:CloudGroupBox>-->
+        </wpf:CloudGroupBox>
         <Grid Name="panelTreadRestart" Row="3" Margin="15, 0" Visibility="Collapsed">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="52" />

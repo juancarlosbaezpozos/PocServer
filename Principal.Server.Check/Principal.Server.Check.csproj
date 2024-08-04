@@ -48,6 +48,7 @@
     <Compile Include="StiCheckEngine.cs" />
     <Compile Include="StiCheckServerStatus.cs" />
     <Compile Include="StiEndingDiskSpaceCheck.cs" />
+    <Compile Include="StiEnvironmentVariableCheck.cs" />
     <Compile Include="StiIisIsNotInstalledCheck.cs" />
     <Compile Include="StiIisIsNotRunningCheck.cs" />
     <Compile Include="StiInstallServiceAction.cs" />
@@ -55,6 +56,7 @@
     <Compile Include="StiNotEnoughDiskSpaceCheck.cs" />
     <Compile Include="StiPortAvailabilityCheck.cs" />
     <Compile Include="StiRunDiskCleanerAction.cs" />
+    <Compile Include="StiRunEnvVarEditorAction.cs" />
     <Compile Include="StiServerCheck.cs" />
     <Compile Include="StiServerCheckerAction.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

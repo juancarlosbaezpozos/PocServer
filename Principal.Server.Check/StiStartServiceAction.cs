@@ -1,4 +1,5 @@
-﻿using Principal.Server.Agent;
+﻿using System.Threading.Tasks;
+using Principal.Server.Agent;
 
 namespace Principal.Server.Check
 {
@@ -8,10 +9,17 @@ namespace Principal.Server.Check
 
         public override string Description => "Iniciar Agente.";
 
-        public override void Invoke(object element, string elementName)
+        public override bool RemoveCheckAfterInvokeAction => true;
+
+        public override async void Invoke(object element, string elementName)
         {
             base.Invoke(element, elementName);
-            StiServerController.StartServiceAsync().Wait();
+            await StartServiceAsync();
+        }
+
+        private async Task StartServiceAsync()
+        {
+            await StiServerController.StartServiceAsync();
         }
     }
 }

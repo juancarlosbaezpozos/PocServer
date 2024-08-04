@@ -10,6 +10,7 @@ using System.Windows.Markup;
 using System.Windows.Threading;
 using Principal.Server.Agent;
 using Principal.Server.Controller.Images;
+using Principal.Server.Controller.ViewModels;
 using Principal.Server.Objects;
 
 namespace Principal.Server.Controller.Controls;
@@ -26,6 +27,10 @@ public partial class StiServiceInstallationControl : UserControl, IComponentConn
     {
         LockThreadCount = true;
         InitializeComponent();
+
+        var viewModel = (ServiceInstallationViewModel)DataContext;
+        viewModel.LoadFromJson("appsettings.json");
+
         if (!DesignerProperties.GetIsInDesignMode(this))
         {
             timerStatus = new DispatcherTimer
@@ -55,7 +60,9 @@ public partial class StiServiceInstallationControl : UserControl, IComponentConn
         }
         catch
         {
+            // ignored
         }
+
         return false;
     }
 
@@ -76,7 +83,7 @@ public partial class StiServiceInstallationControl : UserControl, IComponentConn
     {
         try
         {
-            StiServiceStatus serviceStatus = StiServerController.ServiceStatus;
+            var serviceStatus = StiServerController.ServiceStatus;
             if (serviceStatus != StiServiceStatus.NotInstalled)
             {
                 textInstalled.FontWeight = FontWeights.Bold;
@@ -87,6 +94,7 @@ public partial class StiServiceInstallationControl : UserControl, IComponentConn
                 textInstalled.FontWeight = FontWeights.Regular;
                 textInstalled.Text = "No Instalado";
             }
+
             switch (serviceStatus)
             {
                 case StiServiceStatus.Started:
@@ -99,6 +107,7 @@ public partial class StiServiceInstallationControl : UserControl, IComponentConn
                     textStarted.Text = string.Empty;
                     break;
             }
+
             switch (serviceStatus)
             {
                 case StiServiceStatus.Stopped:
@@ -111,6 +120,7 @@ public partial class StiServiceInstallationControl : UserControl, IComponentConn
                     textStopped.Text = string.Empty;
                     break;
             }
+
             buttonRestart.IsEnabled = serviceStatus == StiServiceStatus.Started;
             buttonInstall.IsEnabled = !IsWorking && serviceStatus == StiServiceStatus.NotInstalled;
             buttonUninstall.IsEnabled = !IsWorking && serviceStatus != StiServiceStatus.NotInstalled;
@@ -121,6 +131,7 @@ public partial class StiServiceInstallationControl : UserControl, IComponentConn
         }
         catch
         {
+            // ignored
         }
     }
 
@@ -293,14 +304,53 @@ public partial class StiServiceInstallationControl : UserControl, IComponentConn
         }
     }
 
-    //private void ComboBoxThreadCount_SelectionChanged(object sender, SelectionChangedEventArgs e)
-    //{
-    //    if (!LockThreadCount)
-    //    {
-    //        if (IsWorking)
-    //        {
-    //            panelTreadRestart.Visibility = Visibility.Visible;
-    //        }
-    //    }
-    //}
+    private void SldDias_OnValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+    {
+        if (StiServerController.ServiceStatus == StiServiceStatus.Started)
+        {
+            if (panelTreadRestart == null) return;
+            panelTreadRestart.Visibility = Visibility.Visible;
+            SaveChanges();
+        }
+        else
+        {
+            SaveChanges();
+        }
+    }
+
+    private void CmbRegion_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
+    {
+        if (StiServerController.ServiceStatus == StiServiceStatus.Started)
+        {
+            if (panelTreadRestart == null) return;
+            panelTreadRestart.Visibility = Visibility.Visible;
+            SaveChanges();
+        }
+        else
+        {
+            SaveChanges();
+        }
+    }
+
+    private void TxtUserName_OnLostFocus(object sender, RoutedEventArgs e)
+    {
+        if (StiServerController.ServiceStatus == StiServiceStatus.Started)
+        {
+            if (panelTreadRestart == null) return;
+            panelTreadRestart.Visibility = Visibility.Visible;
+            SaveChanges();
+        }
+        else
+        {
+            SaveChanges();
+        }
+    }
+
+    private void SaveChanges()
+    {
+        var viewModel = (ServiceInstallationViewModel)this.DataContext;
+        const string filePath = "appsettings.json";
+        viewModel.SaveToJson(filePath);
+    }
+
 }

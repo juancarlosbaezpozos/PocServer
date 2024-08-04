@@ -168,6 +168,6 @@
     <Reference Include="WindowsBase" />
     <Reference Include="System.Data" />
     <Reference Include="System.Core" />
-    <Reference Include="Newtonsoft.Json"/>
+    <Reference Include="Newtonsoft.Json" />
   </ItemGroup>
 </Project>
