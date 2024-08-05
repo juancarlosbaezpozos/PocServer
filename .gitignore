@@ -273,3 +273,7 @@ __pycache__/
 
 # End of https://www.toptal.com/developers/gitignore/api/aspnetcore
 /Principal.Server/Pruebas.http
+
+Instalador/Gestor de Secretos-cache/
+
+Instalador/Prerequisitos/
